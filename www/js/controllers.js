@@ -63,6 +63,12 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $location) {
 
+  $scope.oldUser = true;
+  $scope.switch = function(){
+    $scope.loggedIn = true;
+    $scope.oldUser = false;
+  };
+
   firebase.auth().onAuthStateChanged(function(user){
     if (user) {
       $scope.loggedIn = true;
@@ -83,14 +89,14 @@ angular.module('starter.controllers', [])
       $scope.loggedIn = false;
     });
   }
-  $scope.createUser = function(email, password, userRole){
+  $scope.createUser = function(email, password, userRole, username){
 
     console.log("Creating user");
     console.log(userRole);
     console.log("email: " + email);
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
       console.log("create user role");
-      firebase.database().ref("users/" + user.uid).set({userRole: userRole});
+      firebase.database().ref("users/" + user.uid).set({userRole: userRole, username: username});
     }).catch(function(error){
       var errorCode = error.code;
       var errorMessage = error.message;

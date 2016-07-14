@@ -3,14 +3,14 @@
     <form name = "eventForm" ng-show = "newEvent" >
       <label class = "item item-input">
         <span class = "input-label">Event title</span>
-        <input type = "text" name = "title" ng-model = "title" required>
+        <input type = "text" name = "eventTitle" ng-model = "eventTitle" required>
       </label>
       <label class = "item item-input">
         <span class = "input-label">location name</span>
-        <input type = "text" name = "location" ng-model = "location" required>
+        <input type = "text" name = "eventLocation" ng-model = "eventLocation" required>
       </label>
     </form>
-    <button class ="button button-positive" ng-click = "createEvent(title, location)">Create event</button>
+    <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation)">Create event</button>
     <!-- show list of events -->
     <ion-list>
       <ion-item ng-repeat = "event in events">

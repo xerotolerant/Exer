@@ -76,8 +76,9 @@ angular.module('starter.controllers', [])
   $scope.createUser = function(email, password, userRole){
 
     console.log("Creating user");
+    console.log(userRole);
     console.log("email: " + email);
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user, userRole){
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
       console.log("create user role");
       firebase.database().ref("users/" + user.uid).set({userRole: userRole});
     }).catch(function(error){

@@ -1,12 +1,21 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {
-
+  var myUserId = firebase.auth().currentUser.uid;
   $scope.newEvent = true;
   firebase.database().ref("events/").on('value', function(snapshot){
     $scope.events = snapshot.val();
     console.log(snapshot.val());
+
   });
+
+
+  firebase.database().ref("users/" + myUserId + "/subscribedEvents").on('value', function(snapshot){
+
+    console.log(snapshot.val());
+    $scope.subscribedEvents = snapshot.val();
+  });
+
   $scope.createEvent = function(title, location){
     console.log(title + " " + location);
     var exerEvent = {
@@ -19,7 +28,15 @@ angular.module('starter.controllers', [])
     firebase.database().ref('events/').push(exerEvent);
   };
 
+  $scope.subscribe = function(eventId){
+    console.log(eventId);
 
+    firebase.database().ref("users/" + myUserId + "/subscribedEvents/" + eventId).set({eventId : eventId}).then(function(){
+      console.log("event added");
+    }).catch(function(error){
+      console.log(error.code + error.message);
+    });
+  };
 
 })
 
@@ -46,6 +63,7 @@ angular.module('starter.controllers', [])
 
 .controller('AccountCtrl', function($scope) {
   var myUserId = firebase.auth().currentUser.uid;
+  //console.log(myUserId);
   $scope.user = firebase.auth().currentUser;
   firebase.database().ref("users/" + myUserId).once('value').then(function(snapshot){
     console.log(snapshot);

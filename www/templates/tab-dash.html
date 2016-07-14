@@ -1,10 +1,20 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-    <button class ="button button-positive" ng-click = "createEvent()">Create event</button>
+    <form name = "eventForm" ng-show = "newEvent" >
+      <label class = "item item-input">
+        <span class = "input-label">Event title</span>
+        <input type = "text" name = "title" ng-model = "title" required>
+      </label>
+      <label class = "item item-input">
+        <span class = "input-label">location name</span>
+        <input type = "text" name = "location" ng-model = "location" required>
+      </label>
+    </form>
+    <button class ="button button-positive" ng-click = "createEvent(title, location)">Create event</button>
     <!-- show list of events -->
     <ion-list>
       <ion-item ng-repeat = "event in events">
-        <div> 
+        <div>
           <h1>{{event.title}}</h1>
           <p>{{event.location.name}}</p>
         </div>

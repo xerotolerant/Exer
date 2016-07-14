@@ -1,7 +1,11 @@
 <ion-view view-title="Account">
   <ion-content>
-    <form name = "userForm" novalidate ng-hide = "loggedIn">
+    <form name = "userForm" novalidate ng-hide = "oldUser">
       <ion-list>
+        <label class="item item-input">
+            <span class="input-label">Username</span>
+            <input type="text" name = "username" ng-model = "username">
+        </label>
         <label class = "item item-input">
           <span class = "input-label">Email Address</span>
           <input type = "email" name = "email" ng-model = "email" ng-minlength = "5" required>
@@ -23,11 +27,26 @@
           <p ng-show = "userForm.password.$error.minlength"> * Password must be longer than 6 character</p>
         </div>
 
-        <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "loginUser(email, password)">Log In</button>
-        <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "createUser(email, password, userRole)">New Account</button>
-        <button class = "button"  ng-click = "createUser('Frankie123@gmail.com', '123456', 'player')">New Account Test</button>
+
+        <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "createUser(email, password, userRole, username)">New Account</button>
       </ion-list>
 
+    </form>
+    <form name = "loginForm" novalidate ng-hide = "loggedIn">
+      <ion-list>
+          <label class="item item-input">
+            <span>email</span>
+            <input type = "email" name = "email" ng-model = "email" required>
+          </label>
+          <label class="item item-input">
+            <span>password</span>
+            <input type = "password" name = "password" ng-model = "password" required>
+          </label>
+
+          <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "loginUser(email, password)">Log In</button>
+      </ion-list>
+
+      <a ng-click = "switch()">Register Here</a>
     </form>
     <button class = "button" ng-show = "loggedIn" ng-click = "logoutUser()">Log out</button>
 

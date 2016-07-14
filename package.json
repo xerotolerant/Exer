@@ -23,9 +23,13 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
+<<<<<<< HEAD
     {
       "platform": "android",
       "locator": "browser"
     }
+=======
+    "android"
+>>>>>>> origin/master
   ]
 }

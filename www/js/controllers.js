@@ -1,15 +1,18 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {
+
+  $scope.newEvent = true;
   firebase.database().ref("events/").on('value', function(snapshot){
     $scope.events = snapshot.val();
     console.log(snapshot.val());
   });
-  $scope.createEvent = function(){
+  $scope.createEvent = function(title, location){
+    console.log(title + " " + location);
     var exerEvent = {
-      title: "5K Road Run",
+      title: title,
       location: {
-        name: "Chaguanas"
+        name: location
       }
     }
     console.log("Creating event");
@@ -35,15 +38,19 @@ angular.module('starter.controllers', [])
   };
 })
 
+
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 })
+
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
 })
+
+
 .controller('LoginCtrl', function($scope, $location) {
 
   firebase.auth().onAuthStateChanged(function(user){

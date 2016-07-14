@@ -45,6 +45,16 @@ angular.module('starter.controllers', [])
 
 
 .controller('AccountCtrl', function($scope) {
+  var myUserId = firebase.auth().currentUser.uid;
+  $scope.user = firebase.auth().currentUser;
+  firebase.database().ref("users/" + myUserId).once('value').then(function(snapshot){
+    console.log(snapshot);
+    $scope.user.role = snapshot.val().userRole;
+  }).catch(function(error){
+    console.log(error);
+  });
+  console.log($scope.user);
+
   $scope.settings = {
     enableFriends: true
   };

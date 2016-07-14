@@ -1,5 +1,10 @@
 <ion-view view-title="Account">
   <ion-content>
+    <div class = "card padding">
+      <h1>{{user.email}}</h1>
+      <p>{{user.role}}</p>
+      <p>{{user.score}}</p>
+    </div>
     <ion-list>
     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends

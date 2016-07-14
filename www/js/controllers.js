@@ -1,6 +1,24 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope) {
+  firebase.database().ref("events/").on('value', function(snapshot){
+    $scope.events = snapshot.val();
+    console.log(snapshot.val());
+  });
+  $scope.createEvent = function(){
+    var exerEvent = {
+      title: "5K Road Run",
+      location: {
+        name: "Chaguanas"
+      }
+    }
+    console.log("Creating event");
+    firebase.database().ref('events/').push(exerEvent);
+  };
+
+
+
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -48,6 +66,17 @@ angular.module('starter.controllers', [])
       $scope.loggedIn = false;
     });
   }
+  $scope.createUser = function(email, password){
+
+    console.log("Creating user");
+    console.log("email: " + email);
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+
+  };
   $scope.loginUser = function(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
       $scope.loggedIn = true;

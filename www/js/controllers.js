@@ -73,15 +73,20 @@ angular.module('starter.controllers', [])
       $scope.loggedIn = false;
     });
   }
-  $scope.createUser = function(email, password){
+  $scope.createUser = function(email, password, userRole){
 
     console.log("Creating user");
     console.log("email: " + email);
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user, userRole){
+      console.log("create user role");
+      firebase.database().ref("users/" + user.uid).set({userRole: userRole});
+    }).catch(function(error){
       var errorCode = error.code;
       var errorMessage = error.message;
       console.log(errorCode, errorMessage);
     });
+
+
 
   };
   $scope.loginUser = function(email, password){

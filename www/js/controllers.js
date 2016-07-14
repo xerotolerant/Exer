@@ -27,7 +27,32 @@ angular.module('starter.controllers', [])
   };
 })
 .controller('LoginCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+  firebase.auth().onAuthStateChanged(function(user){
+    if (user) {
+      $scope.loggedIn = true;
+      console.log($scope.loggedIn);
+        console.log("Logged In");
+    } else {
+      $scope.loggedIn = false;
+      console.log($scope.loggedIn);
+      console.log("Logged Out");
+    };
+  });
+
+
+  $scope.logoutUser = function(){
+    firebase.auth().signOut().then(function(){
+      console.log("Debug: Signed Out");
+      $scope.loggedIn = false;
+    });
+  }
+  $scope.loginUser = function(email, password){
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
+      $scope.loggedIn = true;
+      console.log(user);
+    }).catch(function(error){
+      console.log(error.code);
+      console.log(error.message);
+    });
   };
 });

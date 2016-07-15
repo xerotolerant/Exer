@@ -21,6 +21,15 @@
           <button class = "button button-small button-positive" ng-disabled = "subscribedEvents.hasOwnProperty(key)" ng-click = "subscribe(key)">subscribe</button>
           <!--Show if key is in subscribedEvents -->
           <i class = "icon ion-checkmark positive" ng-show = "subscribedEvents.hasOwnProperty(key)"></i>
+          <button class = "button button-small button-balanced" ng-disabled = "subscribedEvents[key].validated == true" ng-click = "validateEvent(key, event)">validate</button>
+
+          <i class = "icon ion-checkmark balanced" ng-show = "subscribedEvents[key].validated == true"></i>
+          <div class = "padding">
+            <h2>Validation code</h2>
+
+            <qrcode data = "{{key}}"></qrcode>
+          </div>
+
         </div>
       </ion-item>
     </ion-list>

@@ -6,7 +6,7 @@
 5) X set user role upon creation
 6) TODO limit access to event creation to validators
 7) Give validators ability to remove/edit their own events
-8) Add geolocation to events
+8) X Add geolocation to events
 9) X Add event validation module
 10) X Add event registration to users
 11) Add registered event display to account view
@@ -17,4 +17,6 @@
 15) Fix issue with loading data. Possibly create one global object to be referenced on every view
 16) X Integrate QR code Generation
 17) X Integrate QR code Reader
-18) add geolocation to validation module
+18) X add geolocation to validation module
+19) Add geolocation selection to event creation dialogue
+20) Show display name in account view

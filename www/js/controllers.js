@@ -1,7 +1,18 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {
+
   var myUserId = firebase.auth().currentUser.uid;
+  //get device current location
+  navigator.geolocation.getCurrentPosition(function(position){
+    console.log(position);
+    $scope.currentPosition = position;
+  }), function(error){
+    console.log(error.code, error.message);
+    console.log("Failed to detect location");
+  };//get device current location
+
+  //Show newEvent in view
   $scope.newEvent = true;
 
   //update scope on events change
@@ -18,12 +29,17 @@ angular.module('starter.controllers', [])
     $scope.subscribedEvents = snapshot.val();
   });//update scope on subscribedEvents change
 
-  $scope.createEvent = function(title, location){
-    console.log(title + " " + location);
+  $scope.createEvent = function(title, locationName, geoposition){
+    console.log(title + " " + locationName);
+    console.log("geoposition: ", geoposition.coords )
     var exerEvent = {
       title: title,
       location: {
-        name: location
+        name: locationName,
+        geoposition: {
+          latitude: geoposition.coords.latitude,
+          longitude: geoposition.coords.longitude
+        }
       }
     }
     console.log("Creating event");
@@ -42,28 +58,55 @@ angular.module('starter.controllers', [])
 
   //Validate event
   $scope.validateEvent = function(eventId){
-    //scan qr code
-    cordova.plugins.barcodeScanner.scan(
-      function(result){
+    //get event location
+    firebase.database().ref("events/" + eventId).once("value").then(function(snapshot){
+      var eventLocation = snapshot.val().location.geoposition;
+      console.log(eventLocation);
+      console.log($scope.currentPosition);
+      var eventDistance = distance(eventLocation.latitude, eventLocation.longitude, $scope.currentPosition.coords.latitude, $scope.currentPosition.coords.longitude);
+      console.log("Event distance: "+ eventDistance);
+      //Start QR code scanner if within 300m of event
+      if (eventDistance < 0.3) {
+        //scan qr code
+        try{
+        cordova.plugins.barcodeScanner.scan(
+          function(result){
 
-        if (result.text == eventId) {
-          firebase.database().ref("users/" + myUserId + "/subscribedEvents/" + eventId).update({validated : true}).then(function(){
-            console.log("Event validated");
-          }).catch(function(error){
-            console.log(error.code, error.message);
-          });
-        }
-        else{
-          alert("Invalid Code");
-        }
-      },
-      function(error){
-        alert("scanning failed: " + error);
-      }
+            if (result.text == eventId) {
+              firebase.database().ref("users/" + myUserId + "/subscribedEvents/" + eventId).update({validated : true}).then(function(){
+                console.log("Event validated");
+              }).catch(function(error){
+                console.log(error.code, error.message);
+              });
+            }
+            else{
+              alert("Invalid Code");
+            }
+          },
+          function(error){
+            alert("scanning failed: " + error);
+          }
 
-  );// barcodeScanner.scan
+      );// barcodeScanner.scan
+    }catch(error){
+      console.log(error);
+    }
+  }else{
+    alert("Cannot validate from this location");
+  };
+    });//test location
 
 
+
+  function distance(lat1, lon1, lat2, lon2){
+    var p = Math.PI/180;
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 +
+         c(lat1 * p) * c(lat2 * p) *
+         (1 - c((lon2 - lon1) * p))/2;
+
+     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+  }
 };//validateEvent
 })//DashCtrl
 
@@ -107,7 +150,16 @@ angular.module('starter.controllers', [])
 
 
 .controller('LoginCtrl', function($scope, $location) {
-
+/*
+  $scope.facebookLogin = function(){
+    var provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope = ("user_birthday");
+    firebase.auth().signInWithredirect(provider).then(function(result){
+      var token = result.credential.accessToken;
+      user = result.user;
+    });
+  }; //facebookLogin
+  */
   $scope.oldUser = true;
   $scope.switch = function(){
     $scope.loggedIn = true;
@@ -125,6 +177,7 @@ angular.module('starter.controllers', [])
       console.log($scope.loggedIn);
       console.log("Logged Out");
     };
+
   });
 
 
@@ -160,4 +213,4 @@ angular.module('starter.controllers', [])
       console.log(error.message);
     });
   };
-});
+});//LoginCtrl

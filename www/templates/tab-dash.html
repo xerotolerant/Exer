@@ -1,16 +1,25 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-    <form name = "eventForm" ng-show = "newEvent" >
-      <label class = "item item-input">
-        <span class = "input-label">Event title</span>
-        <input type = "text" name = "eventTitle" ng-model = "eventTitle" required>
-      </label>
-      <label class = "item item-input">
-        <span class = "input-label">location name</span>
-        <input type = "text" name = "eventLocation" ng-model = "eventLocation" required>
-      </label>
-    </form>
-    <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation)">Create event</button>
+    <div class = "card padding">
+      <h2>New Event</h2>
+      <form name = "eventForm" ng-show = "newEvent" >
+        <label class = "item item-input">
+          <span class = "input-label">Event title</span>
+          <input type = "text" name = "eventTitle" ng-model = "eventTitle" required>
+        </label>
+        <label class = "item item-input">
+          <span class = "input-label">location name</span>
+          <input type = "text" name = "eventLocation" ng-model = "eventLocation" required>
+        </label>
+      </form>
+      <div class = "padding">
+        <h3>Location</h3>
+        <p>Latitude: {{currentPosition.coords.latitude}}</p>
+        <p>Longitude: {{currentPosition.coords.longitude}}</p>
+      </div>
+      <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation, currentPosition)">Create event</button>
+    </div>
+
     <!-- show list of events -->
     <ion-list>
       <ion-item class = "item-text-wrap" ng-repeat = "(key, event) in events">
@@ -21,7 +30,7 @@
           <button class = "button button-small button-positive" ng-disabled = "subscribedEvents.hasOwnProperty(key)" ng-click = "subscribe(key)">subscribe</button>
           <!--Show if key is in subscribedEvents -->
           <i class = "icon ion-checkmark positive" ng-show = "subscribedEvents.hasOwnProperty(key)"></i>
-          <button class = "button button-small button-balanced" ng-disabled = "subscribedEvents[key].validated == true" ng-click = "validateEvent(key, event)">validate</button>
+          <button class = "button button-small button-balanced" ng-disabled = "subscribedEvents[key].validated == true" ng-click = "validateEvent(key)">validate</button>
 
           <i class = "icon ion-checkmark balanced" ng-show = "subscribedEvents[key].validated == true"></i>
           <div class = "padding">

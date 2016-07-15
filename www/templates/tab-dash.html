@@ -18,7 +18,7 @@
           <h1>{{event.title}}</h1>
           <p>{{event.location.name}}</p>
           <p >Id: {{key}}</p>
-          <button class = "button button-small button-positive" ng-click = "subscribe(key)">subscribe</button>
+          <button class = "button button-small button-positive" ng-disabled = "subscribedEvents.hasOwnProperty(key)" ng-click = "subscribe(key)">subscribe</button>
           <!--Show if key is in subscribedEvents -->
           <i class = "icon ion-checkmark positive" ng-show = "subscribedEvents.hasOwnProperty(key)"></i>
         </div>

@@ -1,9 +1,12 @@
 <ion-view view-title="Account">
   <ion-content class ="has-header">
     <div class = "card padding">
-      <h1>{{user.email}}</h1>
-      <p>{{user.role}}</p>
+      <h1>{{user.displayName}}</h1>
+      <h2>{{user.role}}</h2>
+
       <p>{{user.score}}</p>
+      <p>Email Address: {{user.email}}</p>
+
     </div>
     <div class = "padding">
       <qrcode data = "string"></qrcode>

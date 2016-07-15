@@ -6,6 +6,7 @@
             <span class="input-label">Username</span>
             <input type="text" name = "username" ng-model = "username">
         </label>
+        
         <label class = "item item-input">
           <span class = "input-label">Email Address</span>
           <input type = "email" name = "email" ng-model = "email" ng-minlength = "5" required>
@@ -49,6 +50,6 @@
       <a ng-click = "switch()">Register Here</a>
     </form>
     <button class = "button" ng-show = "loggedIn" ng-click = "logoutUser()">Log out</button>
-    
+
   </ion-content>
 </ion-view>

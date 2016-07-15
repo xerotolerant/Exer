@@ -65,7 +65,7 @@ angular.module('starter.controllers', [])
       console.log($scope.currentPosition);
       var eventDistance = distance(eventLocation.latitude, eventLocation.longitude, $scope.currentPosition.coords.latitude, $scope.currentPosition.coords.longitude);
       console.log("Event distance: "+ eventDistance);
-      //Start QR code scanner if within 300m of event
+      //Start QR code scanner if within
       if (eventDistance < 0.3) {
         //scan qr code
         try{
@@ -138,6 +138,7 @@ angular.module('starter.controllers', [])
   firebase.database().ref("users/" + myUserId).once('value').then(function(snapshot){
     console.log(snapshot);
     $scope.user.role = snapshot.val().userRole;
+    
   }).catch(function(error){
     console.log(error);
   });
@@ -194,7 +195,11 @@ angular.module('starter.controllers', [])
     console.log("email: " + email);
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
       console.log("create user role");
-      firebase.database().ref("users/" + user.uid).set({userRole: userRole, username: username});
+      user.updateProfile({
+        displayName: username
+      });
+      firebase.database().ref("users/" + user.uid).set({userRole: userRole});
+
     }).catch(function(error){
       var errorCode = error.code;
       var errorMessage = error.message;

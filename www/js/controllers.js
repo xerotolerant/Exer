@@ -3,18 +3,20 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {
   var myUserId = firebase.auth().currentUser.uid;
   $scope.newEvent = true;
+
+  //update scope on events change
   firebase.database().ref("events/").on('value', function(snapshot){
     $scope.events = snapshot.val();
-    console.log(snapshot.val());
+    //console.log(snapshot.val());
 
-  });
+  });//update scope on events change
 
-
+  //update scope on subscribedEvents value change
   firebase.database().ref("users/" + myUserId + "/subscribedEvents").on('value', function(snapshot){
 
     console.log(snapshot.val());
     $scope.subscribedEvents = snapshot.val();
-  });
+  });//update scope on subscribedEvents change
 
   $scope.createEvent = function(title, location){
     console.log(title + " " + location);
@@ -26,7 +28,7 @@ angular.module('starter.controllers', [])
     }
     console.log("Creating event");
     firebase.database().ref('events/').push(exerEvent);
-  };
+  };// createEvent
 
   $scope.subscribe = function(eventId){
     console.log(eventId);
@@ -36,9 +38,34 @@ angular.module('starter.controllers', [])
     }).catch(function(error){
       console.log(error.code + error.message);
     });
-  };
+  }; //subscribe
 
-})
+  //Validate event
+  $scope.validateEvent = function(eventId){
+    //scan qr code
+    cordova.plugins.barcodeScanner.scan(
+      function(result){
+
+        if (result.text == eventId) {
+          firebase.database().ref("users/" + myUserId + "/subscribedEvents/" + eventId).update({validated : true}).then(function(){
+            console.log("Event validated");
+          }).catch(function(error){
+            console.log(error.code, error.message);
+          });
+        }
+        else{
+          alert("Invalid Code");
+        }
+      },
+      function(error){
+        alert("scanning failed: " + error);
+      }
+
+  );// barcodeScanner.scan
+
+
+};//validateEvent
+})//DashCtrl
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called

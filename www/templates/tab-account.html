@@ -2,20 +2,25 @@
   <ion-content class ="has-header">
     <div class = "card padding">
       <h1>{{user.displayName}}</h1>
-      <h2>{{user.role}}</h2>
+
+      <p>Role: {{userData.userRole}}</p>
 
       <p>{{user.score}}</p>
       <p>Email Address: {{user.email}}</p>
-
+      
     </div>
     <div class = "padding">
       <qrcode data = "string"></qrcode>
     </div>
+
     <ion-list>
 
     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends
     </ion-toggle>
+    <ion-item ng-repeat = "event in events">
+      <h3>{{event.title}}</h3>
+    </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

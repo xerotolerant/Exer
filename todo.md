@@ -19,5 +19,5 @@
 17) X Integrate QR code Reader
 18) X add geolocation to validation module
 19) Add geolocation selection to event creation dialogue
-20) Show display name in account view
+20) X Show display name in account view
 21) Fix need to restart app after user creation in order to login

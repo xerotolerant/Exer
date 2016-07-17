@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('DashCtrl', function($scope, $firebaseObject, User) {
 
   var myUserId = firebase.auth().currentUser.uid;
   //get device current location
@@ -14,99 +14,22 @@ angular.module('starter.controllers', [])
 
   //Show newEvent in view
   $scope.newEvent = true;
+  $scope.events = User.events;
+  $scope.subscribedEvents = User.subscribedEvents;
 
-  //update scope on events change
-  firebase.database().ref("events/").on('value', function(snapshot){
-    $scope.events = snapshot.val();
-    //console.log(snapshot.val());
 
-  });//update scope on events change
 
-  //update scope on subscribedEvents value change
-  firebase.database().ref("users/" + myUserId + "/subscribedEvents").on('value', function(snapshot){
-
-    console.log(snapshot.val());
-    $scope.subscribedEvents = snapshot.val();
-  });//update scope on subscribedEvents change
 
   $scope.createEvent = function(title, locationName, geoposition){
-    console.log(title + " " + locationName);
-    console.log("geoposition: ", geoposition.coords )
-    var exerEvent = {
-      title: title,
-      location: {
-        name: locationName,
-        geoposition: {
-          latitude: geoposition.coords.latitude,
-          longitude: geoposition.coords.longitude
-        }
-      }
-    }
-    console.log("Creating event");
-    firebase.database().ref('events/').push(exerEvent);
+    User.createEvent(title, locationName, geoposition);
   };// createEvent
 
   $scope.subscribe = function(eventId){
-    console.log(eventId);
-
-    firebase.database().ref("users/" + myUserId + "/subscribedEvents/" + eventId).set({eventId : eventId}).then(function(){
-      console.log("event added");
-    }).catch(function(error){
-      console.log(error.code + error.message);
-    });
+    User.subscribe(eventId)
   }; //subscribe
-
   //Validate event
-  $scope.validateEvent = function(eventId){
-    //get event location
-    firebase.database().ref("events/" + eventId).once("value").then(function(snapshot){
-      var eventLocation = snapshot.val().location.geoposition;
-      console.log(eventLocation);
-      console.log($scope.currentPosition);
-      var eventDistance = distance(eventLocation.latitude, eventLocation.longitude, $scope.currentPosition.coords.latitude, $scope.currentPosition.coords.longitude);
-      console.log("Event distance: "+ eventDistance);
-      //Start QR code scanner if within
-      if (eventDistance < 0.3) {
-        //scan qr code
-        try{
-        cordova.plugins.barcodeScanner.scan(
-          function(result){
-
-            if (result.text == eventId) {
-              firebase.database().ref("users/" + myUserId + "/subscribedEvents/" + eventId).update({validated : true}).then(function(){
-                console.log("Event validated");
-              }).catch(function(error){
-                console.log(error.code, error.message);
-              });
-            }
-            else{
-              alert("Invalid Code");
-            }
-          },
-          function(error){
-            alert("scanning failed: " + error);
-          }
-
-      );// barcodeScanner.scan
-    }catch(error){
-      console.log(error);
-    }
-  }else{
-    alert("Cannot validate from this location");
-  };
-    });//test location
-
-
-
-  function distance(lat1, lon1, lat2, lon2){
-    var p = Math.PI/180;
-    var c = Math.cos;
-    var a = 0.5 - c((lat2 - lat1) * p)/2 +
-         c(lat1 * p) * c(lat2 * p) *
-         (1 - c((lon2 - lon1) * p))/2;
-
-     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-  }
+  $scope.validateEvent = function(eventId, currentPosition){
+    User.validateEvent(eventId, User.currentUser.uid, currentPosition);
 };//validateEvent
 })//DashCtrl
 
@@ -131,23 +54,17 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope) {
-  var myUserId = firebase.auth().currentUser.uid;
-  //console.log(myUserId);
-  $scope.user = firebase.auth().currentUser;
-  firebase.database().ref("users/" + myUserId).once('value').then(function(snapshot){
-    console.log(snapshot);
-    $scope.user.role = snapshot.val().userRole;
-    
-  }).catch(function(error){
-    console.log(error);
-  });
-  console.log($scope.user);
+.controller('AccountCtrl', function($scope, $firebaseObject, User) {
 
+  $scope.userData = User.userData;
+  $scope.user = User.currentUser;
   $scope.settings = {
     enableFriends: true
   };
-})
+
+  $scope.events = User.events;
+
+})//AccountCtrl
 
 
 .controller('LoginCtrl', function($scope, $location) {

@@ -25,13 +25,11 @@
     "cordova-plugin-geolocation"
   ],
   "cordovaPlatforms": [
-<<<<<<< HEAD
+
     {
       "platform": "android",
       "locator": "browser"
     }
-=======
-    "android"
->>>>>>> origin/master
+
   ]
 }

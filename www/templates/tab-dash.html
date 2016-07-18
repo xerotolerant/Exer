@@ -15,6 +15,14 @@
           <span class = "input-label">Points</span>
           <input type = "number" name = "eventPoints" ng-model = "eventPoints" required>
         </label>
+        <label class = "item item-input">
+          <span class = "input-label">date</span>
+          <input type = "date" name = "eventDate" ng-model = "eventDate" required>
+        </label>
+	      <label class = "item item-input">
+          <span class = "input-label">Time</span>
+          <input type = "text" name = "eventTime" ng-model = "eventTime" required>
+        </label>
       </form>
       <div class = "padding">
         <h3>Location</h3>
@@ -24,7 +32,7 @@
 
         </div>
       </div>
-      <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation, currentPosition, eventPoints)">Create event</button>
+      <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation, currentPosition, eventPoints,eventDate, eventTime)">Create event</button>
     </div>
 
     <!-- show list of events -->

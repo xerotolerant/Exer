@@ -21,3 +21,15 @@
 19) Add geolocation selection to event creation dialogue
 20) X Show display name in account view
 21) Fix need to restart app after user creation in order to login
+22) Add date and time to event creator
+23) Add point value to events
+24) Increase user points on event validation
+25) Show user points in Account view
+25) Implement daily login point Increase
+29) Enable offline storage for:
+	a) User Profile
+		i) User name
+		ii) User role
+		iii) user score
+	d) events
+	e) Subscribed events

@@ -20,8 +20,8 @@ angular.module('starter.controllers', [])
 
 
 
-  $scope.createEvent = function(title, locationName, geoposition, points){
-    User.createEvent(title, locationName, geoposition, points);
+  $scope.createEvent = function(title, locationName, geoposition){
+    User.createEvent(title, locationName, geoposition);
   };// createEvent
 
   $scope.subscribe = function(eventId){
@@ -79,11 +79,17 @@ angular.module('starter.controllers', [])
   }; //facebookLogin
   */
   $scope.oldUser = true;
-  //$scope.newUser = false;
+  $scope.newUser = false;
 
   $scope.switch = function(){
-    $scope.loggedIn = true;
-    $scope.oldUser = false;
+    if($scope.oldUser){
+      $scope.newUser = true;
+      $scope.oldUser = false;
+    }else{
+      $scope.oldUser = true;
+      $scope.newUser = false;
+    }
+
   };
 
   firebase.auth().onAuthStateChanged(function(user){

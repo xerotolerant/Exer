@@ -39,8 +39,8 @@ angular.module('starter.controllers', [])
 
 
 
-  $scope.createEvent = function(title, locationName, geoposition){
-    User.createEvent(title, locationName, geoposition);
+  $scope.createEvent = function(title, locationName, geoposition, points, date, time){
+    User.createEvent(title, locationName, geoposition, points, date, time);
   };// createEvent
 
   $scope.subscribe = function(eventId){

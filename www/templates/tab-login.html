@@ -6,7 +6,7 @@
             <span class="input-label">Username</span>
             <input type="text" name = "username" ng-model = "username">
         </label>
-        
+
         <label class = "item item-input">
           <span class = "input-label">Email Address</span>
           <input type = "email" name = "email" ng-model = "email" ng-minlength = "5" required>
@@ -31,9 +31,9 @@
 
         <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "createUser(email, password, userRole, username)">New Account</button>
       </ion-list>
-
+      <a ng-click = "switch()">Login</a>
     </form>
-    <form name = "loginForm" novalidate ng-hide = "loggedIn">
+    <form name = "loginForm" novalidate ng-hide = "newUser">
       <ion-list>
           <label class="item item-input">
             <span>email</span>

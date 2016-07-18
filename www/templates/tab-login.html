@@ -6,7 +6,7 @@
             <span class="input-label">Username</span>
             <input type="text" name = "username" ng-model = "username">
         </label>
-        
+
         <label class = "item item-input">
           <span class = "input-label">Email Address</span>
           <input type = "email" name = "email" ng-model = "email" ng-minlength = "5" required>
@@ -31,23 +31,24 @@
 
         <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "createUser(email, password, userRole, username)">New Account</button>
       </ion-list>
-
+      <a ng-click = "switch()">Login</a>
     </form>
-    <form name = "loginForm" novalidate ng-hide = "loggedIn">
-      <ion-list>
+    <form name = "loginForm" novalidate ng-hide = "newUser">
+      <ion-list ng-hide = "loggedIn">
           <label class="item item-input">
-            <span>email</span>
+            <span class="input-label">email</span>
             <input type = "email" name = "email" ng-model = "email" required>
           </label>
           <label class="item item-input">
-            <span>password</span>
+            <span class="input-label">password</span>
             <input type = "password" name = "password" ng-model = "password" required>
           </label>
 
           <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "loginUser(email, password)">Log In</button>
+          <a ng-click = "switch()">Register Here</a>
       </ion-list>
 
-      <a ng-click = "switch()">Register Here</a>
+
     </form>
     <button class = "button" ng-show = "loggedIn" ng-click = "logoutUser()">Log out</button>
 

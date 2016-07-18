@@ -11,13 +11,17 @@
           <span class = "input-label">location name</span>
           <input type = "text" name = "eventLocation" ng-model = "eventLocation" required>
         </label>
+        <label class = "item item-input">
+          <span class = "input-label">Points</span>
+          <input type = "number" name = "eventPoints" ng-model = "eventPoints" required>
+        </label>
       </form>
       <div class = "padding">
         <h3>Location</h3>
         <p>Latitude: {{currentPosition.coords.latitude}}</p>
         <p>Longitude: {{currentPosition.coords.longitude}}</p>
       </div>
-      <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation, currentPosition)">Create event</button>
+      <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation, currentPosition, eventPoints)">Create event</button>
     </div>
 
     <!-- show list of events -->

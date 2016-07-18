@@ -14,7 +14,7 @@
 	a) Add user card, display name, photo, score
 13)set up user profile controller
 14) X Add displayname to user creation
-15) Fix issue with loading data. Possibly create one global object to be referenced on every view
+15) X Fix issue with loading data. Possibly create one global object to be referenced on every view
 16) X Integrate QR code Generation
 17) X Integrate QR code Reader
 18) X add geolocation to validation module

@@ -20,8 +20,8 @@ angular.module('starter.controllers', [])
 
 
 
-  $scope.createEvent = function(title, locationName, geoposition){
-    User.createEvent(title, locationName, geoposition);
+  $scope.createEvent = function(title, locationName, geoposition, points){
+    User.createEvent(title, locationName, geoposition, points);
   };// createEvent
 
   $scope.subscribe = function(eventId){
@@ -80,7 +80,7 @@ angular.module('starter.controllers', [])
   */
   $scope.oldUser = true;
   $scope.newUser = false;
-  
+
   $scope.switch = function(){
     if($scope.oldUser){
       $scope.oldUser = false;

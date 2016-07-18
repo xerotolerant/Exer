@@ -79,16 +79,11 @@ angular.module('starter.controllers', [])
   }; //facebookLogin
   */
   $scope.oldUser = true;
-  $scope.newUser = false;
+  //$scope.newUser = false;
 
   $scope.switch = function(){
-    if($scope.oldUser){
-      $scope.oldUser = false;
-      $scope.newUser = true;
-    }else{
-      $scope.newUser = false;
-      $scope.oldUser = true;
-    }
+    $scope.loggedIn = true;
+    $scope.oldUser = false;
   };
 
   firebase.auth().onAuthStateChanged(function(user){

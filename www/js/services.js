@@ -27,11 +27,12 @@ angular.module('starter.services', [])
   };
 
   //create events
-  this.createEvent = function(title, locationName, geoposition){
+  this.createEvent = function(title, locationName, geoposition, points){
     console.log(title + " " + locationName);
     console.log("geoposition: ", geoposition.coords )
     var exerEvent = {
       title: title,
+      points:points,
       location: {
         name: locationName,
         geoposition: {

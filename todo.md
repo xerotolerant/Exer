@@ -34,3 +34,4 @@
 	d) events
 	e) Subscribed events
 30) Hide create event div until clicked (new event button)
+31) Create clubs

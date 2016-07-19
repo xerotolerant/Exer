@@ -20,6 +20,9 @@
         <h3>Location</h3>
         <p>Latitude: {{currentPosition.coords.latitude}}</p>
         <p>Longitude: {{currentPosition.coords.longitude}}</p>
+        <div id = "map">
+
+        </div>
       </div>
       <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation, currentPosition, eventPoints)">Create event</button>
     </div>

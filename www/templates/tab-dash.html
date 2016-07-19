@@ -18,13 +18,14 @@
       </form>
       <div class = "padding">
         <h3>Location</h3>
-        <p>Latitude: {{currentPosition.coords.latitude}}</p>
-        <p>Longitude: {{currentPosition.coords.longitude}}</p>
+        <p>Latitude: {{latLng.lat}}</p>
+        <p>Longitude: {{latLng.lng}}</p>
+
         <div id = "map">
 
         </div>
       </div>
-      <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation, currentPosition, eventPoints)">Create event</button>
+      <button class ="button button-positive" ng-click = "createEvent(eventTitle, eventLocation, latLng, eventPoints)">Create event</button>
     </div>
 
     <!-- show list of events -->

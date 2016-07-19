@@ -15,7 +15,14 @@ angular.module('starter.services', [])
   //Get Events data from firebase
   this.eventRef = firebase.database().ref("events");
   this.events = $firebaseObject(this.eventRef);
-  console.log("User data out ref", this.userData);
+
+
+  //User points test
+  var userPointsRef = firebase.database().ref("users/" + this.currentUser.uid + "/points/");
+
+  var userPoints = $firebaseObject(userPointsRef);
+  userPoints.$loaded().then(function(){console.log(userPoints)});
+  //console.log(userInfo);
 
   //subscribe to events
   this.subscribe = function(eventId){
@@ -51,7 +58,7 @@ angular.module('starter.services', [])
     //get event location
     firebase.database().ref("events/" + eventId).once("value").then(function(snapshot){
       var eventLocation = snapshot.val().location.geoposition;
-      console.log(eventLocation);
+      console.log(snapshot.val().points);
       console.log(currentPosition);
       var eventDistance = distance(eventLocation.latitude, eventLocation.longitude, currentPosition.coords.latitude, currentPosition.coords.longitude);
       console.log("Event distance: "+ eventDistance);
@@ -61,13 +68,21 @@ angular.module('starter.services', [])
         try{
         cordova.plugins.barcodeScanner.scan(
           function(result){
-
+            console.log(result);
             if (result.text == eventId) {
               firebase.database().ref("users/" + userId + "/subscribedEvents/" + eventId).update({validated : true}).then(function(){
                 console.log("Event validated");
               }).catch(function(error){
                 console.log(error.code, error.message);
               });
+
+              
+              firebase.database().ref("users/"+ userId).update({points : userPoints.$value + snapshot.val().points}).then(function(){
+                console.log("Points updated");
+              }).catch(function(error){
+                  console.log(error.code, error.message);
+              });
+
             }
             else{
               alert("Invalid Code");

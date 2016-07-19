@@ -60,7 +60,7 @@ angular.module('starter.services', [])
       var eventLocation = snapshot.val().location.geoposition;
       console.log(snapshot.val().points);
       console.log(currentPosition);
-      var eventDistance = distance(eventLocation.latitude, eventLocation.longitude, currentPosition.coords.latitude, currentPosition.coords.longitude);
+      var eventDistance = distance(eventLocation.latitude, eventLocation.longitude, currentPosition.lat, currentPosition.lng);
       console.log("Event distance: "+ eventDistance);
       //Start QR code scanner if within
       if (eventDistance < 0.3) {

@@ -13,7 +13,19 @@
     <div class = "padding">
       <qrcode data = "string"></qrcode>
     </div>
-
+    <form name = "newClub">
+        <ion-list>
+            <label class="item item-input">
+              <span class="input-label">Club name:</span>
+              <input type="text" name = "clubName" ng-model = "clubName">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Location</span>
+              <input type="text" name = "clubLocation" ng-model = "clubLocation">
+            </label>
+          <button class ="button button-positive" ng-click = "createClub(clubName, clubLocation)">Create Club</button>
+        </ion-list>
+    </form>
     <ion-list>
 
     <ion-toggle  ng-model="settings.enableFriends">

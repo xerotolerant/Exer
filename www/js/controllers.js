@@ -19,21 +19,9 @@ angular.module('starter.controllers', [])
   //Render map
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-  google.maps.event.addListenerOnce(map, "idle", function(){
-    marker = new google.maps.Marker({
-      map: map,
-      animation: google.maps.Animation.DROP,
-      position: latLng
-    });
-  });
 
-  google.maps.event.addListener(map, "click", function(event){
-    latLng.lat = event.latLng.lat();
-    latLng.lng = event.latLng.lng();
-    marker.setPosition(event.latLng);
-    map.setCenter(event.latLng);
-    $timeout(updateLocation());
-  })
+
+
   //get device current location
   navigator.geolocation.getCurrentPosition(function(position){
     console.log(latLng);
@@ -51,7 +39,28 @@ angular.module('starter.controllers', [])
 
 
   //Show newEvent in view
-  $scope.newEvent = true;
+  $scope.toggleNewEvent = function(){
+    $scope.newEvent = !$scope.newEvent;
+    console.log($scope.newEvent);
+    $timeout(function(){
+      map = new google.maps.Map(document.getElementById('map'), mapOptions);
+      google.maps.event.addListenerOnce(map, "idle", function(){
+        marker = new google.maps.Marker({
+          map: map,
+          animation: google.maps.Animation.DROP,
+          position: latLng
+        });
+      });
+    });
+    google.maps.event.addListener(map, "click", function(event){
+      latLng.lat = event.latLng.lat();
+      latLng.lng = event.latLng.lng();
+      marker.setPosition(event.latLng);
+      map.setCenter(event.latLng);
+      $timeout(updateLocation());
+    })
+  }
+  $scope.newEvent = false;
   $scope.events = User.events;
   $scope.subscribedEvents = User.subscribedEvents;
 

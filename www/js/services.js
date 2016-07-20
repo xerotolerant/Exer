@@ -76,7 +76,7 @@ angular.module('starter.services', [])
                 console.log(error.code, error.message);
               });
 
-              
+
               firebase.database().ref("users/"+ userId).update({points : userPoints.$value + snapshot.val().points}).then(function(){
                 console.log("Points updated");
               }).catch(function(error){
@@ -113,6 +113,21 @@ angular.module('starter.services', [])
      return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
   }
+
+  this.createClub = function(name, locationName ){
+    var exerClub = {
+      name:name,
+      location:{
+        name:locationName
+      }
+    }
+    firebase.database().ref('clubs/').push(exerClub);
+    console.log("Event Created");
+  }
+
+  var clubref = firebase.database().ref("clubs");
+  this.clubs = $firebaseObject(clubref);
+
 })
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array

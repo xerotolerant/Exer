@@ -83,6 +83,13 @@ angular.module('starter.controllers', [])
 
   $scope.events = User.events;
 
+  $scope.logoutUser = function(){
+    firebase.auth().signOut().then(function(){
+      console.log("Debug: Signed Out");
+      $scope.loggedIn = false;
+    });
+  }
+
 })//AccountCtrl
 
 

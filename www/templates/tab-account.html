@@ -19,6 +19,7 @@
     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends
     </ion-toggle>
+    <button class = "button" ng-click = "logoutUser()">Log out</button>
     <ion-item ng-repeat = "event in events">
       <h3>{{event.title}}</h3>
     </ion-item>

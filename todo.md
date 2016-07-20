@@ -33,3 +33,14 @@
 		iii) user score
 	d) events
 	e) Subscribed events
+30) Add club property to user obj in database
+31) Add club selection to user creation dialog
+32) X Add clubs object to DB
+	--clubname{events, members, location{name, lat, lng}, photo}
+33) X Add club creation dialog to accounts view
+ a) restrict to validators only
+ b) edit club
+
+34) Add photo to user
+35) store user image during creation dialog
+36) Add logout button to the accounts View

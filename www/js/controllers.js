@@ -35,7 +35,15 @@ angular.module('starter.controllers', [])
     console.log("Failed to detect location");
   };//get device current location
 
-
+  navigator.geolocation.watchPosition(function(position){
+    console.log(latLng);
+    latLng.lat = position.coords.latitude;
+    latLng.lng =  position.coords.longitude;
+    map.setCenter(latLng);
+  }, function(error){
+    console.log(error.code);
+    console.log(error.message);
+  });
 
 
   //Show newEvent in view

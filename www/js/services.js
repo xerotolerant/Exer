@@ -1,9 +1,9 @@
 angular.module('starter.services', [])
 .service("User", function($firebaseObject){
-  //service-wide variables
+
 
   //get User Data from firebase
-  this.currentUser = firebase.auth().currentUser
+  this.currentUser = firebase.auth().currentUser;
   //get User role from firebase database
   var currentUserDataRef = firebase.database().ref("users/" + this.currentUser.uid);
   this.userData = $firebaseObject(currentUserDataRef);

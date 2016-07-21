@@ -38,3 +38,5 @@
 32) Rename Views to use correct terminology
 33) Remove test QR Code from Account View
 34) Remove vestegial code from template (Chats, Enable friends etc)
+35) Set Account creation screen/login screen to show if user is not logged in
+36) Set tabs to show only if users is logged in

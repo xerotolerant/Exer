@@ -18,14 +18,14 @@
 16) X Integrate QR code Generation
 17) X Integrate QR code Reader
 18) X add geolocation to validation module
-19) X Add geolocation selection to event creation dialogue
+19) Add geolocation selection to event creation dialogue
 20) X Show display name in account view
 21) Fix need to restart app after user creation in order to login
 22) Add date and time to event creator
-23) X Add point value to events
-24) X Increase user points on event validation
-25) X Show user points in Account view
-26) Implement daily login point Increase
+23) Add point value to events
+24) Increase user points on event validation
+25) Show user points in Account view
+25) Implement daily login point Increase
 29) Enable offline storage for:
 	a) User Profile
 		i) User name
@@ -33,6 +33,17 @@
 		iii) user score
 	d) events
 	e) Subscribed events
+30) Add club property to user obj in database
+31) Add club selection to user creation dialog
+32) X Add clubs object to DB
+	--clubname{events, members, location{name, lat, lng}, photo}
+33) X Add club creation dialog to accounts view
+ a) restrict to validators only
+ b) edit club
+
+34) Add photo to user
+35) store user image during creation dialog
+36) Add logout button to the accounts View
 30) X Hide create event div until clicked (new event button)
 31) Create clubs
 32) Rename Views to use correct terminology

@@ -12,6 +12,9 @@ angular.module('starter.services', [])
   var subscribedEventsRef = firebase.database().ref("users/" + this.currentUser.uid + "/subscribedEvents");
   this.subscribedEvents = $firebaseObject(subscribedEventsRef);
 
+  var allUsersRef = firebase.database().ref("users/");
+  this.allUsers = $firebaseObject(allUsersRef);
+
   //Get Events data from firebase
   this.eventRef = firebase.database().ref("events");
   this.events = $firebaseObject(this.eventRef);
@@ -113,6 +116,21 @@ angular.module('starter.services', [])
      return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
   }
+
+  this.createClub = function(name, locationName ){
+    var exerClub = {
+      name:name,
+      location:{
+        name:locationName
+      }
+    }
+    firebase.database().ref('clubs/').push(exerClub);
+    console.log("Event Created");
+  }
+
+  var clubref = firebase.database().ref("clubs");
+  this.clubs = $firebaseObject(clubref);
+
 })
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array

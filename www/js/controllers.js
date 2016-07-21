@@ -118,6 +118,23 @@ angular.module('starter.controllers', [])
   };
 
   $scope.events = User.events;
+  console.log("Events");
+  console.log(User.events);
+  $scope.logoutUser = function(){
+    firebase.auth().signOut().then(function(){
+      console.log("Debug: Signed Out");
+      $scope.loggedIn = false;
+    });
+  }
+
+  $scope.createClub = function(name, location){
+    User.createClub(name, location);
+  }
+  console.log("Clubs");
+  console.log(User.clubs);
+  $scope.clubs = function(){
+
+  }
 
 })//AccountCtrl
 

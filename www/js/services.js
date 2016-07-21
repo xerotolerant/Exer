@@ -12,6 +12,9 @@ angular.module('starter.services', [])
   var subscribedEventsRef = firebase.database().ref("users/" + this.currentUser.uid + "/subscribedEvents");
   this.subscribedEvents = $firebaseObject(subscribedEventsRef);
 
+  var allUsersRef = firebase.database().ref("users/");
+  this.allUsers = $firebaseObject(allUsersRef);
+
   //Get Events data from firebase
   this.eventRef = firebase.database().ref("events");
   this.events = $firebaseObject(this.eventRef);

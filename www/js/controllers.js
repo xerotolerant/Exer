@@ -113,6 +113,7 @@ angular.module('starter.controllers', [])
 
   $scope.userData = User.userData;
   $scope.user = User.currentUser;
+  $scope.users = User.allUsers;
   $scope.settings = {
     enableFriends: true
   };
@@ -126,16 +127,13 @@ angular.module('starter.controllers', [])
       $scope.loggedIn = false;
     });
   }
+  //$scope.members = [];
 
-  $scope.createClub = function(name, location){
-    User.createClub(name, location);
+  $scope.createClub = function(name, location, members){
+    //User.createClub(name, location);
+    //console.log(members);
+    //console.log($scope.members);
   }
-  console.log("Clubs");
-  console.log(User.clubs);
-  $scope.clubs = function(){
-
-  }
-
 })//AccountCtrl
 
 
@@ -175,6 +173,7 @@ angular.module('starter.controllers', [])
   $scope.createUser = function(email, password, userRole, username){
 
     console.log("Creating user");
+    console.log(username);
     console.log(userRole);
     console.log("email: " + email);
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
@@ -182,7 +181,7 @@ angular.module('starter.controllers', [])
       user.updateProfile({
         displayName: username
       });
-      firebase.database().ref("users/" + user.uid).set({userRole: userRole});
+      firebase.database().ref("users/" + user.uid).set({userRole: userRole, username: username});
 
     }).catch(function(error){
       var errorCode = error.code;

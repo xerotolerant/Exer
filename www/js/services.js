@@ -130,6 +130,7 @@ angular.module('starter.services', [])
 
   var clubref = firebase.database().ref("clubs");
   this.clubs = $firebaseObject(clubref);
+  //User service comment
 
 })
 .factory('Chats', function() {

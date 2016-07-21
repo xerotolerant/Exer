@@ -10,7 +10,7 @@
       <p>Email Address: {{user.email}}</p>
 
     </div>
-    
+
     <form name = "newClub">
         <ion-list>
             <label class="item item-input">
@@ -21,7 +21,11 @@
               <span class="input-label">Location</span>
               <input type="text" name = "clubLocation" ng-model = "clubLocation">
             </label>
-          <button class ="button button-positive" ng-click = "createClub(clubName, clubLocation)">Create Club</button>
+            <label ng-repeat = "(key, user) in users" >
+                <input type="checkbox" name="persons" checklist-model ="members" checklist-value="key">{{user.username}}
+                </br>
+            </label>
+          <button class ="button button-positive" ng-click = "createClub(clubName, clubLocation, members)">Create Club</button>
         </ion-list>
     </form>
     <ion-list>

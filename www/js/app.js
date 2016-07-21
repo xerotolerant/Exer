@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services', 'monospaced.qrcode'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $location) {
   $ionicPlatform.ready(function() {
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -21,6 +21,20 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    firebase.auth().onAuthStateChanged(function(user){
+      if (user) {
+        //$scope.loggedIn = true;
+        //console.log($scope.loggedIn);
+          console.log("Logged In");
+          $location.path("/tab/dash");
+      } else {
+        //$scope.loggedIn = false;
+        //console.log($scope.loggedIn);
+        console.log("Logged Out");
+      };
+
+    });
   });
 })
 

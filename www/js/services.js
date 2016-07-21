@@ -1,5 +1,5 @@
 angular.module('starter.services', [])
-.service("User", function($firebaseObject){
+.service("User", function($firebaseObject, $ionicPopup){
 
 
   //get User Data from firebase
@@ -81,7 +81,13 @@ angular.module('starter.services', [])
 
 
               firebase.database().ref("users/"+ userId).update({points : userPoints.$value + snapshot.val().points}).then(function(){
+                $ionicPopup.alert({
+                  title: "Congratulations!",
+                  template: "You got " + userPoints.$value + " points!",
+                  subtitle: "You got " + userPoints.$value + " points!"
+                });
                 console.log("Points updated");
+
               }).catch(function(error){
                   console.log(error.code, error.message);
               });

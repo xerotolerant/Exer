@@ -147,7 +147,6 @@ angular.module('starter.controllers', [])
 
   };
 
-  
 
 
   $scope.logoutUser = function(){

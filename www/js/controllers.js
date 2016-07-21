@@ -109,7 +109,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope, $firebaseObject, User) {
+.controller('AccountCtrl', function($scope, $firebaseObject, User, $ionicPopup) {
 
   $scope.userData = User.userData;
   $scope.user = User.currentUser;
@@ -127,17 +127,47 @@ angular.module('starter.controllers', [])
       $scope.loggedIn = false;
     });
   }
-  //$scope.members = [];
+  $scope.members = {};
 
   $scope.createClub = function(name, location, members){
-    //User.createClub(name, location);
+    User.createClub(name, location, members);
     //console.log(members);
-    //console.log($scope.members);
+  }
+
+  $scope.logoutUser = function(){
+    var confirmed = $ionicPopup.confirm({
+      title: "Are you Sure?",
+      okText: "Logout",
+      okType : "button-assertive"
+    })
+    if (confirmed){
+      firebase.auth().signOut().then(function(){
+        console.log("Debug: Signed Out");
+        $scope.loggedIn = false;
+      });
+    }else {
+      alert("Doing Nothing");
+    }
+
   }
 })//AccountCtrl
 
 
 .controller('LoginCtrl', function($scope, $location) {
+
+  firebase.auth().onAuthStateChanged(function(user){
+    if (user) {
+      $scope.loggedIn = true;
+      //console.log($scope.loggedIn);
+        console.log("Logged In");
+        $location.path("/tab/dash");
+    } else {
+      $scope.loggedIn = false;
+      //console.log($scope.loggedIn);
+      console.log("Logged Out");
+    };
+
+  });
 /*
   $scope.facebookLogin = function(){
     var provider = new firebase.auth.FacebookAuthProvider();

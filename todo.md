@@ -51,3 +51,5 @@
 34) Remove vestegial code from template (Chats, Enable friends etc)
 35) Set Account creation screen/login screen to show if user is not logged in
 36) Set tabs to show only if users is logged in
+
+37) X UX add Notification of succesful validation with points

@@ -123,9 +123,10 @@ angular.module('starter.services', [])
   }
   }
 
-  this.createClub = function(name, locationName ){
+  this.createClub = function(name, locationName, members ){
     var exerClub = {
       name:name,
+      members: members,
       location:{
         name:locationName
       }

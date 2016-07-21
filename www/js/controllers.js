@@ -140,6 +140,19 @@ angular.module('starter.controllers', [])
 
 
 .controller('LoginCtrl', function($scope, $location) {
+  firebase.auth().onAuthStateChanged(function(user){
+    if (user) {
+      $scope.loggedIn = true;
+      //console.log($scope.loggedIn);
+        console.log("Logged In");
+        $location.path("/tab/dash");
+    } else {
+      $scope.loggedIn = false;
+      //console.log($scope.loggedIn);
+      console.log("Logged Out");
+    };
+
+  });
 /*
   $scope.facebookLogin = function(){
     var provider = new firebase.auth.FacebookAuthProvider();

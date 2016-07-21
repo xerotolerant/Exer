@@ -1,38 +1,74 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $firebaseObject, User) {
+.controller('DashCtrl', function($scope, $firebaseObject, $timeout, User) {
+
+  var latLng = {lat: 10.51499342546846, lng: -61};
+  $scope.latLng = latLng;
+  updateLocation = function(){
+    $scope.latLng = latLng;
+  }
+
+  var mapOptions = {
+    center: latLng,
+    zoom: 8
+
+  };
+  var marker;
+
+
+  //Render map
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+
 
 
   //get device current location
   navigator.geolocation.getCurrentPosition(function(position){
-    console.log("Current Position: " + position);
-    $scope.currentPosition = position;
-    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    var mapOptions = {
-      center: latLng,
-      zoom: 15
-      //mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+    console.log(latLng);
+    latLng.lat = position.coords.latitude;
+    latLng.lng =  position.coords.longitude;
+    map.setCenter(latLng);
 
-    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-    google.maps.event.addListenerOnce($scope.map, "idle", function(){
-      var marker = new google.maps.Marker({
-        map: $scope.map,
-        animation: google.maps.Animation.DROP,
-        position: latLng
-      });
-    });
 
   }), function(error){
     console.log(error.code, error.message);
     console.log("Failed to detect location");
   };//get device current location
 
-  //Render map
-  console.log(document.getElementById("map"));
+  navigator.geolocation.watchPosition(function(position){
+    console.log(latLng);
+    latLng.lat = position.coords.latitude;
+    latLng.lng =  position.coords.longitude;
+    map.setCenter(latLng);
+  }, function(error){
+    console.log(error.code);
+    console.log(error.message);
+  });
+
+
   //Show newEvent in view
-  $scope.newEvent = true;
+  $scope.toggleNewEvent = function(){
+    $scope.newEvent = !$scope.newEvent;
+    console.log($scope.newEvent);
+    $timeout(function(){
+      map = new google.maps.Map(document.getElementById('map'), mapOptions);
+      google.maps.event.addListenerOnce(map, "idle", function(){
+        marker = new google.maps.Marker({
+          map: map,
+          animation: google.maps.Animation.DROP,
+          position: latLng
+        });
+      });
+    });
+    google.maps.event.addListener(map, "click", function(event){
+      latLng.lat = event.latLng.lat();
+      latLng.lng = event.latLng.lng();
+      marker.setPosition(event.latLng);
+      map.setCenter(event.latLng);
+      $timeout(updateLocation());
+    })
+  }
+  $scope.newEvent = false;
   $scope.events = User.events;
   $scope.subscribedEvents = User.subscribedEvents;
 

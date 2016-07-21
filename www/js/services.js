@@ -39,7 +39,7 @@ angular.module('starter.services', [])
   //create events
   this.createEvent = function(title, locationName, geoposition, points, date, time){
     console.log(title + " " + locationName);
-    console.log("geoposition: ", geoposition.coords )
+    //console.log("geoposition: ", geoposition.coords )
     var exerEvent = {
       title: title,
       points:points,
@@ -48,8 +48,8 @@ angular.module('starter.services', [])
       location: {
         name: locationName,
         geoposition: {
-          latitude: geoposition.coords.latitude,
-          longitude: geoposition.coords.longitude
+          latitude: geoposition.lat,
+          longitude: geoposition.lng
         }
       }
     }
@@ -63,7 +63,7 @@ angular.module('starter.services', [])
       var eventLocation = snapshot.val().location.geoposition;
       console.log(snapshot.val().points);
       console.log(currentPosition);
-      var eventDistance = distance(eventLocation.latitude, eventLocation.longitude, currentPosition.coords.latitude, currentPosition.coords.longitude);
+      var eventDistance = distance(eventLocation.latitude, eventLocation.longitude, currentPosition.lat, currentPosition.lng);
       console.log("Event distance: "+ eventDistance);
       //Start QR code scanner if within
       if (eventDistance < 0.3) {

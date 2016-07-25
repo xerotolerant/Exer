@@ -1,16 +1,19 @@
-<ion-view view-title="Chats">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.lastText}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+<ion-view title="Chats" hide-nav-bar="true" id="page4" style="background-color:#E9E9E9;" class=" ">
+    <ion-content padding="true" style="background: url(img/RXsdPnQTVO7wMxSkntfT_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+        <ion-list id="chat-list14" class=" ">
+            <ion-item class="item-avatar item-icon-right  " id="chat-list-item29" ui-sref="exerConsol.chatScreen">
+                <img src="img/MqlTMooPQf6BUoyCO5wM_black woman smiling icon-26.png">
+                <h2>Elise Brevit</h2>
+                <p>I thought you were coming to the event</p>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-avatar item-icon-right  " id="chat-list-item30" ui-sref="exerConsol.chatScreen">
+                <img src="img/f22LnEQBS1EBYrzrI61Q_Indian man smiling-26.png">
+                <h2>Jeremy Drayton</h2>
+                <p>Stacey was killing it. WOW!</p>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+        </ion-list>
+        <a ui-sref="exerConsol.membersList" id="chat-button36" class=" button button-balanced  button-block icon ion-ios-plus-outline ">New Chat</a>
+    </ion-content>
 </ion-view>

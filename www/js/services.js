@@ -1,5 +1,5 @@
 angular.module('starter.services', [])
-.service("User", function($firebaseObject, $ionicPopup){
+.service("User", function($firebaseObject, $ionicPopup, $state){
 
 
   //get User Data from firebase
@@ -18,6 +18,23 @@ angular.module('starter.services', [])
   //Get Events data from firebase
   this.eventRef = firebase.database().ref("events");
   this.events = $firebaseObject(this.eventRef);
+
+  this.logout = function() {
+    var confirmed = $ionicPopup.confirm({
+      title: "Are you Sure?",
+      okText: "Logout",
+      okType : "button-assertive"
+    })
+
+    if (confirmed){
+      firebase.auth().signOut().then(function(){
+        console.log("Debug: Signed Out");
+        $state.go("login");
+      });
+    }else {
+      alert("Doing Nothing");
+    }
+  }
 
 
   //User points test

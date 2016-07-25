@@ -132,14 +132,14 @@ angular.module('starter.services', [])
       }
     }
     firebase.database().ref('clubs/').push(exerClub);
-    console.log("Event Created");
+    console.log("Club Created");
   }
 
-  var clubref = firebase.database().ref("clubs");
-  this.clubs = $firebaseObject(clubref);
+
   //User service comment
 
 })
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
@@ -187,4 +187,31 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+
+.service("Club", function($firebaseObject, $ionicPopup){
+
+  var clubref = firebase.database().ref("clubs");
+  this.clubs = $firebaseObject(clubref);
+
+  //function to send request to joining clubs
+  this.joinRequest = function(clubs, userID){
+    if(clubs == null){
+        console.log("Clubs is Empty");
+    }else{
+      console.log(clubs);
+      for(var key in clubs){
+        var request = {
+            userID : userID,
+            resposne : false
+
+        };
+        firebase.database().ref("clubs/"+ key + "/request/").push(request);
+        console.log(key);
+      }
+    }
+    //get all the clubs from the clubs object7
+    //firebase.database().ref("clubs/" + + "/request/").push();
+  }
 });

@@ -20,6 +20,10 @@
           <ion-radio name = "userRole" ng-model = "userRole" ng-value = "'player'">Player</ion-radio>
           <ion-radio name = "userRole" ng-model = "userRole" ng-value = "'validator'">Validator</ion-radio>
         </label>
+        <label ng-repeat = "(key, club) in clubs">
+          <input type="checkbox" name="clubs" ng-model="request[key]">{{club.name}}
+          </br>
+        </label>
         <div class = "padding">
           <p ng-show = "userForm.email.$error.required">* Email is reqiured</p>
           <p ng-show = "userForm.email.$error.invalid && !userForm.username.$pristine">* Email is reqiured</p>
@@ -29,7 +33,7 @@
         </div>
 
 
-        <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "createUser(email, password, userRole, username)">New Account</button>
+        <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "createUser(email, password, userRole, username, request)">New Account</button>
       </ion-list>
       <a ng-click = "switch()">Login</a>
     </form>

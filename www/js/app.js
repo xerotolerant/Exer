@@ -94,6 +94,26 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     }
   })
 
+  .state('tab.feed', {
+      url:"/feed",
+      views:{
+          'tab-feed' :{
+            templateUrl: 'templates/tab-feed.html',
+            controller: 'FeedCtrl'
+          }
+      }
+  })
+
+  .state('tab.store', {
+      url:"/store",
+      views:{
+          'tab-store' :{
+            templateUrl: 'templates/tab-store.html',
+            controller: 'StoreCtrl'
+          }
+      }
+  })
+
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
@@ -103,6 +123,6 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/login');
 
 });

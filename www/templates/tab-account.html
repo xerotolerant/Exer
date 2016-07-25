@@ -1,43 +1,28 @@
-<ion-view view-title="Account">
-  <ion-content class ="has-header">
-    <div class = "card padding">
-      <h1>{{user.displayName}}</h1>
-
-      <p>Role: {{userData.userRole}}</p>
-      <p>Points: {{userData.points}}</p>
-
-      <p>{{user.score}}</p>
-      <p>Email Address: {{user.email}}</p>
-
-    </div>
-
-    <form name = "newClub">
-        <ion-list>
-            <label class="item item-input">
-              <span class="input-label">Club name:</span>
-              <input type="text" name = "clubName" ng-model = "clubName">
-            </label>
-            <label class="item item-input">
-              <span class="input-label">Location</span>
-              <input type="text" name = "clubLocation" ng-model = "clubLocation">
-            </label>
-            <label ng-repeat = "(key, user) in users" >
-                <input type="checkbox" name="persons" ng-model="members[key]">{{user.username}}
-                </br>
-            </label>
-          <button class ="button button-positive" ng-click = "createClub(clubName, clubLocation, members)">Create Club</button>
-        </ion-list>
-    </form>
-    <ion-list>
-
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    <button class = "button" ng-click = "logoutUser()">Log out</button>
-    <ion-item ng-repeat = "event in events">
-      <h3>{{event.title}}</h3>
-    </ion-item>
-    </ion-list>
-    <button class ="button button-assertive" ng-click = "logoutUser()">Log out</button>
-  </ion-content>
+<ion-view title="Profile" hide-nav-bar="true" id="page6" style="background-color:#E9E9E9;" class=" ">
+    <ion-content padding="true" style="background: url(img/ELdAIqv9SQa7JKMSMm7M_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+        <div class="list card " id="profile-card26">
+            <div class=" item item-image">
+                <img src="img/N11tKt9R6icaIx79180w_Smiling-woman.jpg" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+            </div>
+            <h1 id="profile-heading9" style="color:#000000;text-align:center;" class=" ">Jesse Windle</h1>
+            <a ui-sref="exerConsol.clubList" id="profile-button41" class=" button button-calm  button-block ">Join Club</a>
+            <ion-item class="item-thumbnail-left  " id="profile-list-item33">
+                <img src="img/tZIBtATt666rw1qcyQQ2_Courare Icon-19.png">
+                <h2>Your Courage</h2>
+                <p>Courage Value</p>
+            </ion-item>
+        </div>
+        <div class="list card " id="profile-card213">
+            <div class=" item item-image">
+                <img src="img/N11tKt9R6icaIx79180w_Smiling-woman.jpg" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+            </div>
+            <h1 id="profile-heading18" style="color:#000000;text-align:center;" class=" ">Jesse Windle</h1>
+            <a ui-sref="exerConsol.clubList" id="profile-button43" style="color:#5D5D5D;" class=" button button-calm  button-block button-clear icon-right ion-edit ">CLUB NAME</a>
+            <ion-item class="item-thumbnail-left  " id="profile-list-item41">
+                <img src="img/tZIBtATt666rw1qcyQQ2_Courare Icon-19.png">
+                <h2>Your Courage</h2>
+                <p>Courage Value</p>
+            </ion-item>
+        </div>
+    </ion-content>
 </ion-view>

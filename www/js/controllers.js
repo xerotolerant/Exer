@@ -134,23 +134,7 @@ angular.module('starter.controllers', [])
     //console.log(members);
   }
 
-  $scope.logoutUser = function(){
-    var confirmed = $ionicPopup.confirm({
-      title: "Are you Sure?",
-      okText: "Logout",
-      okType : "button-assertive"
-    })
-
-    if (confirmed){
-      firebase.auth().signOut().then(function(){
-        console.log("Debug: Signed Out");
-        $state.go("login");
-      });
-    }else {
-      alert("Doing Nothing");
-    }
-
-  }
+  $scope.logoutUser = User.logout;
 })//AccountCtrl
 
 .controller('FeedCtrl', function($scope){

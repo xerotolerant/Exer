@@ -109,7 +109,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope, $firebaseObject, User, $ionicPopup) {
+.controller('AccountCtrl', function($scope, $firebaseObject, User, $ionicPopup, $state) {
 
   $scope.userData = User.userData;
   $scope.user = User.currentUser;
@@ -140,10 +140,11 @@ angular.module('starter.controllers', [])
       okText: "Logout",
       okType : "button-assertive"
     })
+
     if (confirmed){
       firebase.auth().signOut().then(function(){
         console.log("Debug: Signed Out");
-        $scope.loggedIn = false;
+        $state.go("login");
       });
     }else {
       alert("Doing Nothing");
@@ -152,9 +153,20 @@ angular.module('starter.controllers', [])
   }
 })//AccountCtrl
 
+.controller('FeedCtrl', function($scope){
+  console.log("Feed controller in a gear");
+})
 
-.controller('LoginCtrl', function($scope, $location, Club) {
+.controller('StoreCtrl', function($scope){
+  console.log("Store controller in a gear");
+})
 
+.controller('LoginCtrl', function($scope, $state, $location, Club) {
+  $scope.changeLocation = function(){
+    console.log("Changing View");
+    $state.go("tab.chats");
+
+  }
   $scope.request = {};
   $scope.clubs = Club.clubs;
 
@@ -164,7 +176,7 @@ angular.module('starter.controllers', [])
       $scope.loggedIn = true;
       //console.log($scope.loggedIn);
         console.log("Logged In");
-        $location.path("/tab/dash");
+        $state.go("tab.chats");
     } else {
       $scope.loggedIn = false;
       //console.log($scope.loggedIn);
@@ -231,6 +243,7 @@ angular.module('starter.controllers', [])
     firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
       $scope.loggedIn = true;
       console.log(user);
+      //$state.go('tab.chats');
     }).catch(function(error){
       console.log(error.code);
       console.log(error.message);

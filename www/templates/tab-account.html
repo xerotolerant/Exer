@@ -4,12 +4,15 @@
             <div class=" item item-image">
                 <img src="img/N11tKt9R6icaIx79180w_Smiling-woman.jpg" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
             </div>
-            <h1 id="profile-heading9" style="color:#000000;text-align:center;" class=" ">Jesse Windle</h1>
+            <h1 id="profile-heading9" style="color:#000000;text-align:center;" class=" ">{{user.displayName}}</h1>
             <a ui-sref="exerConsol.clubList" id="profile-button41" class=" button button-calm  button-block ">Join Club</a>
             <ion-item class="item-thumbnail-left  " id="profile-list-item33">
                 <img src="img/tZIBtATt666rw1qcyQQ2_Courare Icon-19.png">
                 <h2>Your Courage</h2>
-                <p>Courage Value</p>
+                <p>{{userData.points}}</p>
+
+                <p>Role: {{userData.userRole}}</p>
+                <p>Email Address: {{user.email}}</p>
             </ion-item>
         </div>
         <div class="list card " id="profile-card213">

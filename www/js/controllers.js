@@ -153,7 +153,11 @@ angular.module('starter.controllers', [])
 })//AccountCtrl
 
 
-.controller('LoginCtrl', function($scope, $location) {
+.controller('LoginCtrl', function($scope, $location, Club) {
+
+  $scope.request = {};
+  $scope.clubs = Club.clubs;
+
 
   firebase.auth().onAuthStateChanged(function(user){
     if (user) {
@@ -200,10 +204,10 @@ angular.module('starter.controllers', [])
       $scope.loggedIn = false;
     });
   }
-  $scope.createUser = function(email, password, userRole, username){
+  $scope.createUser = function(email, password, userRole, username, request){
 
     console.log("Creating user");
-    console.log(username);
+    console.log(request);
     console.log(userRole);
     console.log("email: " + email);
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
@@ -212,6 +216,7 @@ angular.module('starter.controllers', [])
         displayName: username
       });
       firebase.database().ref("users/" + user.uid).set({userRole: userRole, username: username});
+      Club.joinRequest(request, user.uid);
 
     }).catch(function(error){
       var errorCode = error.code;

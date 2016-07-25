@@ -53,3 +53,4 @@
 36) Set tabs to show only if users is logged in
 
 37) X UX add Notification of succesful validation with points
+38) Test branch changes

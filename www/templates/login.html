@@ -1,60 +1,16 @@
-<ion-view view-title="Account">
-  <ion-content>
-    <form name = "userForm" novalidate ng-hide = "oldUser">
-      <ion-list>
-        <label class="item item-input">
-            <span class="input-label">Username</span>
-            <input type="text" name = "username" ng-model = "username">
-        </label>
+<ion-view title="Login" hide-nav-bar="true" id="page8" class=" ">
+    <ion-content padding="true" style="background: url(img/xR6Vu15nTpWEOOKwOPmi_Login%2520Background%2520Screen%2520V2-17.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+        <form id="login-form2" class="list ">
+            <div class="spacer" style="width: 300px; height: 313px;"></div>
+            <label class="item item-input " id="login-input3" name="Email">
+                <input type="text" placeholder="Email">
+            </label>
+            <label class="item item-input " id="login-input4">
+                <input type="text" placeholder="Password">
+            </label>
+        </form>
+        <button id="login-button3" class=" button button-positive  button-block ">Login</button>
+        <button id="login-button3" class=" button button-positive  button-block ">New User?</button>
 
-        <label class = "item item-input">
-          <span class = "input-label">Email Address</span>
-          <input type = "email" name = "email" ng-model = "email" ng-minlength = "5" required>
-        </label>
-        <label class = "item item-input">
-          <span class = "input-label">Password</span>
-          <input type = "password" name = "password" ng-model = "password" ng-minlength = "6" required>
-        </label>
-        <label>
-          <span> Select user type</span>
-          <ion-radio name = "userRole" ng-model = "userRole" ng-value = "'player'">Player</ion-radio>
-          <ion-radio name = "userRole" ng-model = "userRole" ng-value = "'validator'">Validator</ion-radio>
-        </label>
-        <label ng-repeat = "(key, club) in clubs">
-          <input type="checkbox" name="clubs" ng-model="request[key]">{{club.name}}
-          </br>
-        </label>
-        <div class = "padding">
-          <p ng-show = "userForm.email.$error.required">* Email is reqiured</p>
-          <p ng-show = "userForm.email.$error.invalid && !userForm.username.$pristine">* Email is reqiured</p>
-          <p ng-show = "userForm.email.$error.minlength">* Email must be longer than 5 characters</p>
-          <p ng-show = "userForm.password.$error.required"> * Password must be longer than 6 character</p>
-          <p ng-show = "userForm.password.$error.minlength"> * Password must be longer than 6 character</p>
-        </div>
-
-
-        <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "createUser(email, password, userRole, username, request)">New Account</button>
-      </ion-list>
-      <a ng-click = "switch()">Login</a>
-    </form>
-    <form name = "loginForm" novalidate ng-hide = "newUser">
-      <ion-list ng-hide = "loggedIn">
-          <label class="item item-input">
-            <span class="input-label">email</span>
-            <input type = "email" name = "email" ng-model = "email" required>
-          </label>
-          <label class="item item-input">
-            <span class="input-label">password</span>
-            <input type = "password" name = "password" ng-model = "password" required>
-          </label>
-
-          <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "loginUser(email, password)">Log In</button>
-          <a ng-click = "switch()">Register Here</a>
-      </ion-list>
-
-
-    </form>
-    <button class = "button" ng-show = "loggedIn" ng-click = "logoutUser()">Log out</button>
-
-  </ion-content>
+    </ion-content>
 </ion-view>

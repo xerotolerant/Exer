@@ -6,11 +6,12 @@
                 <input type="text" placeholder="Email" ng-model = "email">
             </label>
             <label class="item item-input " id="login-input4">
-                <input type="text" placeholder="Password" ng-model="password">
+                <input type="password" placeholder="Password" ng-model="password">
             </label>
         </form>
         <button id="login-button3" class=" button button-positive  button-block " ng-click = "loginUser(email, password)">Login</button>
         <button id="login-button3" class=" button button-positive  button-block ">New User?</button>
+        <button id="login-button3" class=" button button-positive  button-block " ng-click = "logoutUser()">clogoutUser</button>
 
     </ion-content>
 </ion-view>

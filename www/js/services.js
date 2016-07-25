@@ -207,7 +207,12 @@ angular.module('starter.services', [])
             resposne : false
 
         };
+        var club = {
+            clubID: key,
+            status: "Awaiting Response"
+        };
         firebase.database().ref("clubs/"+ key + "/request/").push(request);
+        firebase.database().ref("users/"+ userID + "/clubs/").push(club);
         console.log(key);
       }
     }

@@ -2,7 +2,8 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $firebaseObject, $timeout, User) {
 
-  var latLng = {lat: 10.51499342546846, lng: -61};
+  console.log("Dash Controller working");
+/*  var latLng = {lat: 10.51499342546846, lng: -61};
   $scope.latLng = latLng;
   updateLocation = function(){
     $scope.latLng = latLng;
@@ -60,6 +61,7 @@ angular.module('starter.controllers', [])
         });
       });
     });
+
     google.maps.event.addListener(map, "click", function(event){
       latLng.lat = event.latLng.lat();
       latLng.lng = event.latLng.lng();
@@ -67,7 +69,8 @@ angular.module('starter.controllers', [])
       map.setCenter(event.latLng);
       $timeout(updateLocation());
     })
-  }
+
+  }*/
   $scope.newEvent = false;
   $scope.events = User.events;
   $scope.subscribedEvents = User.subscribedEvents;
@@ -138,12 +141,23 @@ angular.module('starter.controllers', [])
 })//AccountCtrl
 
 .controller('FeedCtrl', function($scope){
-  console.log("Feed controller in a gear");
+  //console.log("Feed controller in a gear");
 })
 
 .controller('StoreCtrl', function($scope){
-  console.log("Store controller in a gear");
+  //console.log("Store controller in a gear");
 })
+
+.controller('ClubsCtrl', function($scope, Club){
+  $scope.clubs = Club.clubs;
+  console.log($scope.clubs);
+})
+
+
+.controller('CreateEventCtrl', function($scope){
+  console.log("Create Event controller in a gear");
+})
+
 
 .controller('LoginCtrl', function($scope, $state, $location, Club) {
   $scope.changeLocation = function(){

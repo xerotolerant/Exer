@@ -36,11 +36,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 
     });//Firebase On Auth State Changed
 
-    Kandy.initialize({
-            apiKey: "api",
-            secretKey: "secret",
-            hostUrl: "https://api.kandy.io"
-    });//Initialize Kandy
+    
   });
 })
 

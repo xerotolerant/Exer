@@ -129,16 +129,16 @@ angular.module('starter.services', [])
 
 
 
-  function distance(lat1, lon1, lat2, lon2){
-    var p = Math.PI/180;
-    var c = Math.cos;
-    var a = 0.5 - c((lat2 - lat1) * p)/2 +
-         c(lat1 * p) * c(lat2 * p) *
-         (1 - c((lon2 - lon1) * p))/2;
+    function distance(lat1, lon1, lat2, lon2){
+      var p = Math.PI/180;
+      var c = Math.cos;
+      var a = 0.5 - c((lat2 - lat1) * p)/2 +
+           c(lat1 * p) * c(lat2 * p) *
+           (1 - c((lon2 - lon1) * p))/2;
 
-     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-  }
-  }
+       return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+    }//Distance
+  }//Validate  event
 
   this.createClub = function(name, locationName, members ){
     var exerClub = {
@@ -152,10 +152,32 @@ angular.module('starter.services', [])
     console.log("Club Created");
   }
 
+  kandy.setup({
+    listeners: {
+      message: onMessageReceived
+    }
+  });//kandy.setup
+  //User Kandy Credentials
+  var kandyRef = firebase.database().ref("users/" + this.currentUser.uid + "/kandy");
+  this.kandy = $firebaseObject(kandyRef);
+  this.kandy.$loaded().then(function(data){
+    kandy.login(
+      "DAKc57c62f960944fd19d79cd4b1870d8b5",
+       data.id,
+       data.password,
+       function(s){console.log("Kandy Login succesful")},
+       function(e){console.log("Kandy Login failed")}
+     );
+  });//kandyRef
 
-  //User service comment
+  //kandy message recieved
+  function onMessageReceived(message){
+    //alert("message received");
+    console.log(message);
+  }
 
-})
+
+})//User Service
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array

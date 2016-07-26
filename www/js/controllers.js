@@ -104,6 +104,17 @@ angular.module('starter.controllers', [])
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
+
+  $scope.sendIm = function(){
+    var message = "hello Kheenan";
+
+    kandy.messaging.sendIm(
+      'user1@k.walkins.hotmail.com',
+      message ,
+      function(s){console.log("message sent", s)},
+      function(e){console.log("sending failed", e)}
+    );
+  }
 })
 
 

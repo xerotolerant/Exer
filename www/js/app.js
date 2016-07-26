@@ -120,6 +120,18 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     controller: 'LoginCtrl'
 
 
+  })
+
+  .state('clubs',{
+    url:'/clubs',
+    templateUrl: 'templates/clubList.html',
+    controller: 'ClubsCtrl'
+  })
+
+  .state('createEvent', {
+    url: '/createEvent',
+    templateUrl: 'templates/createEvent.html',
+    controller: 'CreateEventCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback

@@ -34,7 +34,13 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         console.log("Logged Out");
       };
 
-    });
+    });//Firebase On Auth State Changed
+
+    Kandy.initialize({
+            apiKey: "api",
+            secretKey: "secret",
+            hostUrl: "https://api.kandy.io"
+    });//Initialize Kandy
   });
 })
 

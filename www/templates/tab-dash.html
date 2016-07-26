@@ -1,16 +1,18 @@
-<ion-view title="Check In/ My Events" hide-nav-bar="true" id="page3" style="background-color:#E9E9E9;" class=" ">
+<ion-view title="tab-dash" hide-nav-bar="true" id="page3" style="background-color:#E9E9E9;" class=" ">
     <ion-content padding="true" style="background: url(img/ScdBaZz1RwWLoH1tWGXy_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
         <div class="list card padding" id="checkInMyEvents-card27">
+            <a ui-sref="createEvent" id="profile-button41" class=" button button-calm  button-block ">Create Event</a>
             <p id="checkInMyEvents-markdown35" style="color:#B4DB83;text-align:center;" class=" ">
                 <strong>Today!</strong>
             </p>
             <div class=" item item-image">
                 <img src="img/rGhgNstlQZGrPhk28fmd_Google map placeholder.png" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
             </div>
-            <ion-item class="item-avatar item-icon-right  " id="checkInMyEvents-list-item1" ui-sref="exerConsol.eventInfo">
+            <ion-item class="item-avatar item-icon-right  " id="checkInMyEvents-list-item1" ng-repeat = "(key, event) in events">
                 <img src="img/Y8JIM7RRPinzdZaTZP4v_Courare Icon-19.png">
-                <h2>Fit Flash Mob</h2>
-                <p>Courage Value</p>
+                <h2>{{event.title}}</h2>
+                <p>{{event.location.name}}</p>
+                <p>Courage Value : {{event.points}}</p>
                 <i class="icon ion-information-circled icon-accessory"></i>
             </ion-item>
             <a ui-sref="exerConsol.scanQR" id="checkInMyEvents-button4" class=" button button-positive  button-block ">Check In</a>

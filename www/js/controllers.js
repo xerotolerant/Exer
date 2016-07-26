@@ -116,7 +116,12 @@ angular.module('starter.controllers', [])
     );
   }
 })
+.controller('chatScreenCtrl', function($scope) {
 
+})
+.controller('membersListCtrl', function($scope) {
+
+})
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);

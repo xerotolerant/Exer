@@ -36,7 +36,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 
     });//Firebase On Auth State Changed
 
-    
+
   });
 })
 
@@ -85,7 +85,16 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         }
       }
     })
-
+    .state('chatScreen',{
+      url: '/chats/chatScreen',
+      templateUrl: 'templates/chatScreen.html',
+      controller: 'chatScreenCtrl'
+    })
+    .state('membersList',{
+      url: '/chats/membersList',
+      templateUrl: 'templates/membersList.html',
+      controller: 'membersListCtrl'
+    })
   .state('tab.account', {
     url: '/account',
     views: {
@@ -134,7 +143,8 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     url: '/createEvent',
     templateUrl: 'templates/createEvent.html',
     controller: 'CreateEventCtrl'
-  });
+  })
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

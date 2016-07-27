@@ -5,17 +5,17 @@
             <p id="checkInMyEvents-markdown35" style="color:#B4DB83;text-align:center;" class=" ">
                 <strong>Today!</strong>
             </p>
-            <div class=" item item-image">
-                <img src="img/rGhgNstlQZGrPhk28fmd_Google map placeholder.png" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
-            </div>
             <ion-item class="item-avatar item-icon-right  " id="checkInMyEvents-list-item1" ng-repeat = "(key, event) in events">
                 <img src="img/Y8JIM7RRPinzdZaTZP4v_Courare Icon-19.png">
                 <h2>{{event.title}}</h2>
                 <p>{{event.location.name}}</p>
                 <p>Courage Value : {{event.points}}</p>
+                <qrcode data = "{{key}}"></qrcode>
                 <i class="icon ion-information-circled icon-accessory"></i>
+                <a id="checkInMyEvents-button4" class=" button button-positive  button-block " ng-click = "validateEvent(key, latLng)">Check In</a>
+                <a id="checkInMyEvents-button4" class=" button button-positive  button-block " ng-disabled = "subscribedEvents.hasOwnProperty(key)" ng-click = "subscribe(key)">subscribe</a>
             </ion-item>
-            <a ui-sref="exerConsol.scanQR" id="checkInMyEvents-button4" class=" button button-positive  button-block ">Check In</a>
+
         </div>
         <div class="list card padding" id="checkInMyEvents-card29">
             <p id="checkInMyEvents-markdown36" style="color:#949494;text-align:center;" class=" ">

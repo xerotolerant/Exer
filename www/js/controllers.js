@@ -17,7 +17,6 @@ angular.module('starter.controllers', [])
     console.log(latLng);
     latLng.lat = position.coords.latitude;
     latLng.lng =  position.coords.longitude;
-    map.setCenter(latLng);
 
 
   }), function(error){

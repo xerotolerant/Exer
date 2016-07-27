@@ -6,6 +6,25 @@ angular.module('starter.controllers', [])
   $scope.events = User.events;
   $scope.subscribedEvents = User.subscribedEvents;
 
+  var latLng = {lat: 10.51499342546846, lng: -61};
+    $scope.latLng = latLng;
+    updateLocation = function(){
+      $scope.latLng = latLng;
+    }
+
+  //get device current location
+  navigator.geolocation.getCurrentPosition(function(position){
+    console.log(latLng);
+    latLng.lat = position.coords.latitude;
+    latLng.lng =  position.coords.longitude;
+    map.setCenter(latLng);
+
+
+  }), function(error){
+    console.log(error.code, error.message);
+    console.log("Failed to detect location");
+  };//get device current location
+
 
 
 
@@ -15,7 +34,7 @@ angular.module('starter.controllers', [])
   //Validate event
   $scope.validateEvent = function(eventId, currentPosition){
     User.validateEvent(eventId, User.currentUser.uid, currentPosition);
-};//validateEvent
+  };//validateEvent
 })//DashCtrl
 
 .controller('ChatsCtrl', function($scope, Chats) {

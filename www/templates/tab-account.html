@@ -15,6 +15,23 @@
                 <p>Email Address: {{user.email}}</p>
             </ion-item>
         </div>
+        <form name = "newClub">
+            <ion-list>
+                <label class="item item-input">
+                  <span class="input-label">Club name:</span>
+                  <input type="text" name = "clubName" ng-model = "clubName">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Location</span>
+                  <input type="text" name = "clubLocation" ng-model = "clubLocation">
+                </label>
+                <label ng-repeat = "(key, user) in users" >
+                    <input type="checkbox" name="persons" ng-model="members[key]">{{user.username}}
+                    </br>
+                </label>
+              <button class ="button button-positive" ng-click = "createClub(clubName, clubLocation, members)">Create Club</button>
+            </ion-list>
+        </form>
         <div class="list card " id="profile-card213">
             <div class=" item item-image">
                 <img src="img/N11tKt9R6icaIx79180w_Smiling-woman.jpg" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">

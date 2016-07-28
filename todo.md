@@ -22,9 +22,9 @@
 20) X Show display name in account view
 21) Fix need to restart app after user creation in order to login
 22) Add date and time to event creator
-23) Add point value to events
-24) Increase user points on event validation
-25) Show user points in Account view
+23) X Add point value to events
+24) X Increase user points on event validation
+25) X Show user points in Account view
 25) Implement daily login point Increase
 29) Enable offline storage for:
 	a) User Profile
@@ -33,8 +33,8 @@
 		iii) user score
 	d) events
 	e) Subscribed events
-30) Add club property to user obj in database
-31) Add club selection to user creation dialog
+30) x Add club property to user obj in database
+31) X Add club selection to user creation dialog
 32) X Add clubs object to DB
 	--clubname{events, members, location{name, lat, lng}, photo}
 33) X Add club creation dialog to accounts view
@@ -45,7 +45,7 @@
 35) store user image during creation dialog
 36) Add logout button to the accounts View
 30) X Hide create event div until clicked (new event button)
-31) Create clubs
+31) X Create clubs
 32) Rename Views to use correct terminology
 33) X Remove test QR Code from Account View
 34) Remove vestegial code from template (Chats, Enable friends etc)
@@ -53,4 +53,4 @@
 36) Set tabs to show only if users is logged in
 
 37) X UX add Notification of succesful validation with points
-38) Test branch changes
+38)X Test branch changes

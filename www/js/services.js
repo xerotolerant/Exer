@@ -1,5 +1,5 @@
 angular.module('starter.services', [])
-.service("User", function($firebaseObject, $ionicPopup){
+.service("User", function($firebaseObject, $ionicPopup, $state){
 
 
   //get User Data from firebase
@@ -19,6 +19,23 @@ angular.module('starter.services', [])
   this.eventRef = firebase.database().ref("events");
   this.events = $firebaseObject(this.eventRef);
 
+  this.logout = function() {
+    var confirmed = $ionicPopup.confirm({
+      title: "Are you Sure?",
+      okText: "Logout",
+      okType : "button-assertive"
+    })
+
+    if (confirmed){
+      firebase.auth().signOut().then(function(){
+        console.log("Debug: Signed Out");
+        $state.go("login");
+      });
+    }else {
+      alert("Doing Nothing");
+    }
+  }
+
 
   //User points test
   var userPointsRef = firebase.database().ref("users/" + this.currentUser.uid + "/points/");
@@ -37,7 +54,7 @@ angular.module('starter.services', [])
   };
 
   //create events
-  this.createEvent = function(title, locationName, geoposition, points, date, time){
+  this.createEvent = function(title, description, locationName, geoposition, points, date, time, cost){
     console.log(title + " " + locationName);
     //console.log("geoposition: ", geoposition.coords )
     var exerEvent = {
@@ -45,6 +62,8 @@ angular.module('starter.services', [])
       points:points,
       date: date,
       time: time,
+      description: description,
+      cost: cost,
       location: {
         name: locationName,
         geoposition: {
@@ -112,16 +131,16 @@ angular.module('starter.services', [])
 
 
 
-  function distance(lat1, lon1, lat2, lon2){
-    var p = Math.PI/180;
-    var c = Math.cos;
-    var a = 0.5 - c((lat2 - lat1) * p)/2 +
-         c(lat1 * p) * c(lat2 * p) *
-         (1 - c((lon2 - lon1) * p))/2;
+    function distance(lat1, lon1, lat2, lon2){
+      var p = Math.PI/180;
+      var c = Math.cos;
+      var a = 0.5 - c((lat2 - lat1) * p)/2 +
+           c(lat1 * p) * c(lat2 * p) *
+           (1 - c((lon2 - lon1) * p))/2;
 
-     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-  }
-  }
+       return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+    }//Distance
+  }//Validate  event
 
   this.createClub = function(name, locationName, members ){
     var exerClub = {
@@ -136,57 +155,18 @@ angular.module('starter.services', [])
   }
 
 
-  //User service comment
 
-})
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
+})//User Service
 
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
+.service('Chats', function($firebaseObject) {
+  var currentUser = firebase.auth().currentUser;
+  var userListRef = firebase.database().ref('users/userList');
+  this.userList = $firebaseObject(userListRef);
+
+  var friendListRef = firebase.database().ref('users/' + currentUser.uid + '/friends');
+  this.friendList = $firebaseObject(friendListRef);
 })
 
 
@@ -207,11 +187,71 @@ angular.module('starter.services', [])
             resposne : false
 
         };
+        var club = {
+            clubID: key,
+            status: "Awaiting Response"
+        };
         firebase.database().ref("clubs/"+ key + "/request/").push(request);
+        firebase.database().ref("users/"+ userID + "/clubs/").push(club);
         console.log(key);
       }
     }
     //get all the clubs from the clubs object7
     //firebase.database().ref("clubs/" + + "/request/").push();
+
+
+
   }
+})
+.service("KandyChat", function($timeout, $firebaseObject){
+  kandy.setup({
+    listeners: {
+      message: onMessageReceived
+    }
+  });//kandy.setup
+  function onMessageReceived(message){
+    console.log(message);
+  }
+  //User Kandy Credentials
+  var currentUser = firebase.auth().currentUser;
+  var kandyRef = firebase.database().ref("users/" + currentUser.uid + "/kandy");
+  var directory ={};
+  var factoryKandy = $firebaseObject(kandyRef);
+  var currentChatUser = {};
+  factoryKandy.$loaded().then(function(data){
+    kandy.login(
+      "DAK38603c393d394a1ab1452c3b12a20cef",
+       data.id,
+       data.password,
+       function(s){
+         console.log("Kandy Login succesful");
+         kandy.addressBook.retrieveDirectory(
+           function(data){console.log("directory retrieved"); console.log(data); updateDirectory(data);},
+           function(){console.log("failed")}
+         )
+       },
+       function(e){console.log("Kandy Login failed")}
+     );
+
+  });//kandy Firebase object
+
+  var updateDirectory = function(data){
+    directory = data;
+  }
+  var getDirectory = function(){
+    return directory;
+  }
+  var setCurrentChatUser = function(contact){
+    currentChatUser = contact;
+  }
+  var getCurrentChatUser = function(){
+    return currentChatUser
+  }
+  return{
+    updateDirectory: updateDirectory,
+    directory: getDirectory,
+    setCurrentChatUser: setCurrentChatUser,
+    currentChatUser: getCurrentChatUser
+  }
+
 });

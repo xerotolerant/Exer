@@ -26,11 +26,15 @@
                   <span class="input-label">Location</span>
                   <input type="text" name = "clubLocation" ng-model = "clubLocation">
                 </label>
+                <label class="item item-input">
+                  <span class="input-label">description</span>
+                  <input type="text" name = "clubDescription" ng-model = "clubDescription">
+                </label>
                 <label ng-repeat = "(key, user) in users" >
                     <input type="checkbox" name="persons" ng-model="members[key]">{{user.username}}
                     </br>
                 </label>
-              <button class ="button button-positive" ng-click = "createClub(clubName, clubLocation, members)">Create Club</button>
+              <button class ="button button-positive" ng-click = "createClub(clubName, clubLocation, members, clubDescription)">Create Club</button>
             </ion-list>
         </form>
         <div class="list card " id="profile-card213">

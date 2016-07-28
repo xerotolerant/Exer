@@ -5,6 +5,16 @@ angular.module('starter.controllers', [])
   $scope.newEvent = false;
   $scope.events = User.events;
   $scope.subscribedEvents = User.subscribedEvents;
+  console.log(User.userData);
+  console.log(User.userData.userRole);
+
+  if(User.userData.userRole == "validator"){
+    console.log("I'm a Validator - dash");
+    $scope.player = false;
+  }else{
+    console.log("I'm just a player - dash");
+    $scope.player = true;
+  }
 
   var latLng = {lat: 10.51499342546846, lng: -61};
     $scope.latLng = latLng;
@@ -17,8 +27,6 @@ angular.module('starter.controllers', [])
     console.log(latLng);
     latLng.lat = position.coords.latitude;
     latLng.lng =  position.coords.longitude;
-    map.setCenter(latLng);
-
 
   }), function(error){
     console.log(error.code, error.message);
@@ -61,7 +69,7 @@ angular.module('starter.controllers', [])
     kandy.messaging.sendIm($scope.currentChatUser.full_user_id, message,
       function(s){
         console.log("Message Successfully Sent");
-        
+
       },
       function(e){console.log("there was an error: ", e)}
     )
@@ -116,7 +124,14 @@ angular.module('starter.controllers', [])
   }
   */
 })
-.controller('chatScreenCtrl', function($scope) {
+.controller('chatScreenCtrl', function($scope, User) {
+  if(User.userData.userRole == "validator"){
+    console.log("I'm a Validator - chat");
+    $scope.player = false;
+  }else{
+    console.log("I'm just a player - chat");
+    $scope.player = true;
+  }
 
 })
 .controller('membersListCtrl', function($scope) {
@@ -125,6 +140,7 @@ angular.module('starter.controllers', [])
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+
 })
 
 
@@ -137,6 +153,11 @@ angular.module('starter.controllers', [])
     enableFriends: true
   };
 
+  if(User.userData.userRole == "validator"){
+    $scope.player = false;
+  }else{
+    $scope.player = true;
+  }
   $scope.events = User.events;
   console.log("Events");
   console.log(User.events);
@@ -156,16 +177,38 @@ angular.module('starter.controllers', [])
   $scope.logoutUser = User.logout;
 })//AccountCtrl
 
-.controller('FeedCtrl', function($scope){
+.controller('FeedCtrl', function($scope, User){
   //console.log("Feed controller in a gear");
+  if(User.userData.userRole == "validator"){
+    console.log("I'm a Validator - Feed");
+    $scope.player = false;
+  }else{
+    console.log("I'm just a player - Feed");
+    $scope.player = true;
+  }
 })
 
-.controller('StoreCtrl', function($scope){
+.controller('StoreCtrl', function($scope, User){
   //console.log("Store controller in a gear");
+  if(User.userData.userRole == "validator"){
+    console.log("I'm a Validator - Store");
+    $scope.player = false;
+  }else{
+    console.log("I'm just a player - Store");
+    $scope.player = true;
+  }
+
 })
 
-.controller('ClubsCtrl', function($scope, Club){
+.controller('ClubsCtrl', function($scope, Club, User){
   $scope.clubs = Club.clubs;
+  if(User.userData.userRole == "validator"){
+    console.log("I'm a Validator - clubs");
+    $scope.player = false;
+  }else{
+    console.log("I'm just a player - clubs");
+    $scope.player = true;
+  }
   console.log($scope.clubs);
 })
 
@@ -264,7 +307,7 @@ angular.module('starter.controllers', [])
       $scope.loggedIn = true;
       //console.log($scope.loggedIn);
         console.log("Logged In");
-        $state.go("tab.chats");
+        $state.go("tab.dash");
     } else {
       $scope.loggedIn = false;
       //console.log($scope.loggedIn);
@@ -297,13 +340,6 @@ angular.module('starter.controllers', [])
   };
 
 
-
-  $scope.logoutUser = function(){
-    firebase.auth().signOut().then(function(){
-      console.log("Debug: Signed Out");
-      $scope.loggedIn = false;
-    });
-  }
   $scope.createUser = function(email, password, userRole, username, request){
 
     console.log("Creating user");

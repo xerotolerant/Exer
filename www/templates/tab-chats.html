@@ -13,8 +13,17 @@
                 <p>Stacey was killing it. WOW!</p>
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
+            <ion-item ng-repeat = "contact in directory.contacts" class="item-avatar item-icon-right"  id="chat-list-item30" ng-click = "setCurrentChatUser(contact)" ui-sref = "chatScreen">
+                <img src="img/f22LnEQBS1EBYrzrI61Q_Indian man smiling-26.png">
+                <h2>{{contact.firstName}} {{contact.lastName}}</h2>
+
+                <p>Stacey was killing it. WOW!</p>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
         </ion-list>
         <a ui-sref="membersList" id="chat-button36" class=" button button-balanced  button-block icon ion-ios-plus-outline ">New Chat</a>
         <button class = "button button-positive" ng-click = "sendIm()">Send Im</button>
+        <button class = "button button-positive" ng-click = "getConversations()">Get Conversations</button>
+        <button class = "button button-positive" ng-click = "logData()">Get Conversations</button>
     </ion-content>
 </ion-view>

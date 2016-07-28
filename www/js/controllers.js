@@ -37,7 +37,7 @@ angular.module('starter.controllers', [])
   };//validateEvent
 })//DashCtrl
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, Chats, $timeout, $state, KandyChat) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -45,22 +45,76 @@ angular.module('starter.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
+  $scope.logData = function(){console.log($scope.directory)};
+  refreshDirectory();
+  function refreshDirectory(){
+    $scope.directory = KandyChat.directory();
+    $scope.currentChatUser = KandyChat.currentChatUser();
+    $timeout(refreshDirectory, 500);
+  }
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+  $scope.setCurrentChatUser = function(contact){
+    KandyChat.setCurrentChatUser(contact);
+  }
+
+  $scope.sendMessage = function(message){
+    kandy.messaging.sendIm($scope.currentChatUser.full_user_id, message,
+      function(s){
+        console.log("Message Successfully Sent");
+        
+      },
+      function(e){console.log("there was an error: ", e)}
+    )
+    console.log(message);
+  }
+  /*
+  $scope.Conversations = [];
+  $scope.messages = [];
+  $scope.friends = [];
+  $scope.directory = KandyChat.directory;
+
+  $scope.currentUser = KandyChat.currentChatUser;
+  $scope.logData = function(){
+    console.log(KandyChat.directory);
+    console.log($scope.directory);
+  }
+  $scope.getConversations = function(conversationArray){
+
+    kandy.messaging.getConversations(
+      function(conversations){
+        conversationArray = conversations;
+        console.log(conversations);
+       },
+      function(e){console.log(e)}
+    )
+  }
+  $scope.setCurrentChat = function(user){
+    console.log("User: ", user);
+    KandyChat.currentChatUser = user;
+    $state.go('chatScreen');
+    $scope.currentChatUser = user;
+
+    $scope.logData = function(){
+      console.log($scope.directory);
+    }
+  }
+
+  kandy.addressBook.retrieveDirectory(
+    function(directory){console.log("directory retrieved"); console.log(directory); KandyChat.directory = directory; $scope.directory = directory; $timeout()},
+    function(){console.log("failed")}
+  )
 
   $scope.sendIm = function(){
     var message = "hello Kheenan";
 
     kandy.messaging.sendIm(
-      'user1@k.walkins.hotmail.com',
+      'user1@raiora.hotmail.com',
       message ,
       function(s){console.log("message sent", s)},
       function(e){console.log("sending failed", e)}
     );
   }
+  */
 })
 .controller('chatScreenCtrl', function($scope) {
 

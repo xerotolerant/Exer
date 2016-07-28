@@ -3,7 +3,7 @@
         <ion-list id="chatScreen-list19" class=" ">
             <ion-item class="item-avatar  " id="chatScreen-list-item90" ui-sref="exerConsol.otherUserProfile">
                 <img src="img/xPhAwkUvSsq0iDEWi7ep_black woman smiling icon-26.png">
-                <h2>Elise Brevit</h2>
+                <h2>{{currentChatUser.firstName}} {{currentChatUser.lastName}}</h2>
                 <p>Spartan Fitness</p>
             </ion-item>
         </ion-list>
@@ -21,8 +21,9 @@
             <form id="chatScreen-form11" class="list ">
                 <label class="item item-input " id="chatScreen-input6">
                     <span class="input-label">|</span>
-                    <input type="text" placeholder="">
+                    <input type="text" placeholder="" ng-model = "message">
                 </label>
+                <button class = "button button-small" ng-click = "sendMessage(message)">Send</button>
             </form>
         </div>
     </ion-content>

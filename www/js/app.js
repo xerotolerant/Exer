@@ -88,7 +88,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     .state('chatScreen',{
       url: '/chats/chatScreen',
       templateUrl: 'templates/chatScreen.html',
-      controller: 'chatScreenCtrl'
+      controller: 'ChatsCtrl'
     })
     .state('membersList',{
       url: '/chats/membersList',

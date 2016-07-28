@@ -145,6 +145,13 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     controller: 'CreateEventCtrl'
   })
 
+  .state('clubDetails', {
+    url: '/clubDetails',
+    templateUrl: 'templates/clubDetails.html',
+    controller: 'clubDetailsCtrl'
+  })
+
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

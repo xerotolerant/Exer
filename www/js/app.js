@@ -34,7 +34,9 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         console.log("Logged Out");
       };
 
-    });
+    });//Firebase On Auth State Changed
+
+
   });
 })
 
@@ -83,7 +85,16 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         }
       }
     })
-
+    .state('chatScreen',{
+      url: '/chats/chatScreen',
+      templateUrl: 'templates/chatScreen.html',
+      controller: 'ChatsCtrl'
+    })
+    .state('membersList',{
+      url: '/chats/membersList',
+      templateUrl: 'templates/membersList.html',
+      controller: 'membersListCtrl'
+    })
   .state('tab.account', {
     url: '/account',
     views: {
@@ -94,13 +105,46 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     }
   })
 
+  .state('tab.feed', {
+      url:"/feed",
+      views:{
+          'tab-feed' :{
+            templateUrl: 'templates/tab-feed.html',
+            controller: 'FeedCtrl'
+          }
+      }
+  })
+
+  .state('tab.store', {
+      url:"/store",
+      views:{
+          'tab-store' :{
+            templateUrl: 'templates/tab-store.html',
+            controller: 'StoreCtrl'
+          }
+      }
+  })
+
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl'
 
 
-  });
+  })
+
+  .state('clubs',{
+    url:'/clubs',
+    templateUrl: 'templates/clubList.html',
+    controller: 'ClubsCtrl'
+  })
+
+  .state('createEvent', {
+    url: '/createEvent',
+    templateUrl: 'templates/createEvent.html',
+    controller: 'CreateEventCtrl'
+  })
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

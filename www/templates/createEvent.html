@@ -1,0 +1,52 @@
+<ion-view title="Create Event" hide-nav-bar="true" id="page23" style="background-color:#E9E9E9;" class=" ">
+    <ion-content padding="true" style="background: url(img/ScdBaZz1RwWLoH1tWGXy_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+        <div class="list card padding" id="createEvent-card211">
+          <h3>Location</h3>
+          <p>Latitude: {{latLng.lat}}</p>
+          <p>Longitude: {{latLng.lng}}</p>
+            <div class=" item item-image" id = "map">
+
+            </div>
+            <form id="createEvent-form17" class="list ">
+                <label class="item item-input " id="createEvent-input7">
+                    <input type="text" placeholder="Name" ng-model = "eventTitle">
+                </label>
+                <label class="item item-input " id="createEvent-input8">
+                    <input type="text" placeholder="Location Name" ng-model = "eventLocation">
+                </label>
+                <label class="item item-input " id="createEvent-input8">
+                    <input type="text" placeholder="description (10 words)" ng-model = "description">
+                </label>
+                <label class="item item-input " id="createEvent-input10">
+                    <input type="date" placeholder="Date" ng-model = "eventDate">
+                </label>
+                <label class="item item-input " id="createEvent-input10">
+                    <input type="time" placeholder="time" ng-model = "eventTime">
+                </label>
+            </form>
+            <form id="createEvent-form19" class="list ">
+                <ion-toggle toggle-class="toggle-positive" id="createEvent-toggle4" class=" ">Paid Event</ion-toggle>
+                <div class="item item-body " id="createEvent-list-item-container9">
+                    <form id="createEvent-form22" class="list ">
+                        <p id="createEvent-markdown47" style="margin-top:0px;color:#000000;" class=" ">How much Courage?</p>
+                        <ion-item class="range range-positive " id="createEvent-range6">CRG
+
+                        </ion-item>
+                        <input type="range" value="300" min="300" max="15000" ng-model="eventPoints">
+                        <ion-item class="item-avatar  " id="createEvent-list-item103">
+                            <img src="img/3gEZ7KA1QyGU5kGOQWGM_Courare Icon-19.png">
+                            <h2>300</h2>
+                        </ion-item>
+                        <p id="createEvent-markdown48" style="color:#000000;" class=" ">Cost</p>
+                        <p id="createEvent-markdown49" style="color:#ACBCFC;font-size:35px;" class=" ">
+                            <strong>$ 0.00 USD</strong>
+                            <input type="number" placeholder="Cost" ng-model = "cost">
+                        </p>
+                    </form>
+                </div>
+            </form>
+            <a id="createEvent-button35" class=" button button-energized  button-block " ng-click = "createEvent(eventTitle, description, eventLocation, latLng, eventPoints, eventDate, eventTime, cost)">CREATE EVENT</a>
+        </div>
+        <div id="createEvent-button-bar13" class=" button-bar "></div>
+    </ion-content>
+</ion-view>

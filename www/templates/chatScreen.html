@@ -1,0 +1,30 @@
+<ion-view title="Chat Screen" hide-nav-bar="true" id="page18" style="background-color:#E9E9E9;" class=" ">
+    <ion-content padding="true" style="background: url(img/ELdAIqv9SQa7JKMSMm7M_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+        <ion-list id="chatScreen-list19" class=" ">
+            <ion-item class="item-avatar  " id="chatScreen-list-item90" ui-sref="exerConsol.otherUserProfile">
+                <img src="img/xPhAwkUvSsq0iDEWi7ep_black woman smiling icon-26.png">
+                <h2>{{currentChatUser.firstName}} {{currentChatUser.lastName}}</h2>
+                <p>Spartan Fitness</p>
+            </ion-item>
+        </ion-list>
+        <div class="item item-body " id="chatScreen-list-item-container10">
+            <p id="chatScreen-markdown25" style="margin-top:0px;color:#818181;" class=" ">Hey Jesse!</p>
+            <p id="chatScreen-markdown26" style="color:#000000;text-align:right;" class=" ">Ellie!!!!</p>
+            <p id="chatScreen-markdown27" style="margin-top:0px;color:#818181;" class=" ">How are the kids?</p>
+            <p id="chatScreen-markdown28" style="margin-top:0px;color:#818181;" class=" ">I know they can trouble when they're sick. Did your husband decide to take them for the the event this weekend?</p>
+            <p id="chatScreen-markdown29" style="color:#000000;text-align:right;" class=" ">Yeah he's taking them to his mother's house. Technically he isn't taking care of them but hey</p>
+            <p id="chatScreen-markdown31" style="margin-top:0px;color:#818181;" class=" ">Great see you then! :D</p>
+            <p id="chatScreen-markdown32" style="color:#000000;text-align:right;" class=" ">Sure see you then!</p>
+            <p id="chatScreen-markdown30" style="color:#818181;" class=" ">I thought you were coming to the event? I didn't see you and you are too tall to hide. What happened with Darnell and the kids?</p>
+            <p id="chatScreen-markdown34" style="color:#000000;text-align:right;" class=" ">Elise are you there already? I don't think I will be able to come...sry</p>
+            <p id="chatScreen-markdown33" style="color:#8B8B8B;font-size:9px;text-align:center;" class=" ">Today</p>
+            <form id="chatScreen-form11" class="list ">
+                <label class="item item-input " id="chatScreen-input6">
+                    <span class="input-label">|</span>
+                    <input type="text" placeholder="" ng-model = "message">
+                </label>
+                <button class = "button button-small" ng-click = "sendMessage(message)">Send</button>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

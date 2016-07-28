@@ -59,7 +59,7 @@ angular.module('starter.services', [])
     //console.log("geoposition: ", geoposition.coords )
     var exerEvent = {
       title: title,
-      points:points,
+      points:parseInt(points),
       date: date,
       time: time,
       description: description,
@@ -142,9 +142,10 @@ angular.module('starter.services', [])
     }//Distance
   }//Validate  event
 
-  this.createClub = function(name, locationName, members ){
+  this.createClub = function(name, locationName, members, description ){
     var exerClub = {
       name:name,
+      description: description,
       members: members,
       location:{
         name:locationName
@@ -154,19 +155,80 @@ angular.module('starter.services', [])
     console.log("Club Created");
   }
 
+  kandy.setup({
+    listeners: {
+      message: onMessageReceived
+    }
+  });//kandy.setup
+  //User Kandy Credentials
+  var kandyRef = firebase.database().ref("users/" + this.currentUser.uid + "/kandy");
+  this.kandy = $firebaseObject(kandyRef);
+  this.kandy.$loaded().then(function(data){
+    kandy.login(
+      "DAKc57c62f960944fd19d79cd4b1870d8b5",
+       data.id,
+       data.password,
+       function(s){console.log("Kandy Login succesful")},
+       function(e){console.log("Kandy Login failed")}
+     );
+  });//kandyRef
 
-
+  //kandy message recieved
+  function onMessageReceived(message){
+    //alert("message received");
+    console.log(message);
+  }
 
 
 })//User Service
 
-.service('Chats', function($firebaseObject) {
-  var currentUser = firebase.auth().currentUser;
-  var userListRef = firebase.database().ref('users/userList');
-  this.userList = $firebaseObject(userListRef);
+.factory('Chats', function() {
+  // Might use a resource here that returns a JSON array
 
-  var friendListRef = firebase.database().ref('users/' + currentUser.uid + '/friends');
-  this.friendList = $firebaseObject(friendListRef);
+  // Some fake testing data
+  var chats = [{
+    id: 0,
+    name: 'Ben Sparrow',
+    lastText: 'You on your way?',
+    face: 'img/ben.png'
+  }, {
+    id: 1,
+    name: 'Max Lynx',
+    lastText: 'Hey, it\'s me',
+    face: 'img/max.png'
+  }, {
+    id: 2,
+    name: 'Adam Bradleyson',
+    lastText: 'I should buy a boat',
+    face: 'img/adam.jpg'
+  }, {
+    id: 3,
+    name: 'Perry Governor',
+    lastText: 'Look at my mukluks!',
+    face: 'img/perry.png'
+  }, {
+    id: 4,
+    name: 'Mike Harrington',
+    lastText: 'This is wicked good ice cream.',
+    face: 'img/mike.png'
+  }];
+
+  return {
+    all: function() {
+      return chats;
+    },
+    remove: function(chat) {
+      chats.splice(chats.indexOf(chat), 1);
+    },
+    get: function(chatId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === parseInt(chatId)) {
+          return chats[i];
+        }
+      }
+      return null;
+    }
+  };
 })
 
 
@@ -198,60 +260,5 @@ angular.module('starter.services', [])
     }
     //get all the clubs from the clubs object7
     //firebase.database().ref("clubs/" + + "/request/").push();
-
-
-
   }
-})
-.service("KandyChat", function($timeout, $firebaseObject){
-  kandy.setup({
-    listeners: {
-      message: onMessageReceived
-    }
-  });//kandy.setup
-  function onMessageReceived(message){
-    console.log(message);
-  }
-  //User Kandy Credentials
-  var currentUser = firebase.auth().currentUser;
-  var kandyRef = firebase.database().ref("users/" + currentUser.uid + "/kandy");
-  var directory ={};
-  var factoryKandy = $firebaseObject(kandyRef);
-  var currentChatUser = {};
-  factoryKandy.$loaded().then(function(data){
-    kandy.login(
-      "DAK38603c393d394a1ab1452c3b12a20cef",
-       data.id,
-       data.password,
-       function(s){
-         console.log("Kandy Login succesful");
-         kandy.addressBook.retrieveDirectory(
-           function(data){console.log("directory retrieved"); console.log(data); updateDirectory(data);},
-           function(){console.log("failed")}
-         )
-       },
-       function(e){console.log("Kandy Login failed")}
-     );
-
-  });//kandy Firebase object
-
-  var updateDirectory = function(data){
-    directory = data;
-  }
-  var getDirectory = function(){
-    return directory;
-  }
-  var setCurrentChatUser = function(contact){
-    currentChatUser = contact;
-  }
-  var getCurrentChatUser = function(){
-    return currentChatUser
-  }
-  return{
-    updateDirectory: updateDirectory,
-    directory: getDirectory,
-    setCurrentChatUser: setCurrentChatUser,
-    currentChatUser: getCurrentChatUser
-  }
-
 });

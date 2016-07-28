@@ -5,16 +5,20 @@ angular.module('starter.controllers', [])
   $scope.newEvent = false;
   $scope.events = User.events;
   $scope.subscribedEvents = User.subscribedEvents;
-  console.log(User.userData);
-  console.log(User.userData.userRole);
 
-  if(User.userData.userRole == "validator"){
-    console.log("I'm a Validator - dash");
-    $scope.player = false;
-  }else{
-    console.log("I'm just a player - dash");
-    $scope.player = true;
+  updateUserData()
+  function updateUserData(){
+    console.log(User.userData.userRole)
+    if(User.userData.userRole == null){
+      $timeout(updateUserData, 5000)
+    }else if (User.userData.userRole == "validator") {
+      $scope.player = false;
+    }else {
+      $scope.player = true;
+    }
+
   }
+
 
   var latLng = {lat: 10.51499342546846, lng: -61};
     $scope.latLng = latLng;
@@ -138,6 +142,10 @@ angular.module('starter.controllers', [])
 
 })
 
+.controller('clubDetailsCtrl', function($scope, Club){
+  console.log("Details here");
+})
+
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 
@@ -169,8 +177,8 @@ angular.module('starter.controllers', [])
   }
   $scope.members = {};
 
-  $scope.createClub = function(name, location, members){
-    User.createClub(name, location, members);
+  $scope.createClub = function(name, location, members, clubDescription){
+    User.createClub(name, location, members, clubDescription);
     //console.log(members);
   }
 
@@ -179,6 +187,9 @@ angular.module('starter.controllers', [])
 
 .controller('FeedCtrl', function($scope, User){
   //console.log("Feed controller in a gear");
+  console.log(User.userData);
+  console.log(User.userData.userRole);
+
   if(User.userData.userRole == "validator"){
     console.log("I'm a Validator - Feed");
     $scope.player = false;

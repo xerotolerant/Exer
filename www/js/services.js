@@ -59,7 +59,7 @@ angular.module('starter.services', [])
     //console.log("geoposition: ", geoposition.coords )
     var exerEvent = {
       title: title,
-      points:points,
+      points:parseInt(points),
       date: date,
       time: time,
       description: description,

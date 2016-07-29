@@ -1,4 +1,5 @@
-<ion-view title="Chats" hide-nav-bar="true" id="page4" style="background-color:#E9E9E9;" class=" ">
+<ion-view title="Chats" view-title = "Chats" id="page4" style="background-color:#E9E9E9;" class=" ">
+
     <ion-content padding="true" style="background: url(img/RXsdPnQTVO7wMxSkntfT_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
         <ion-list id="chat-list14" class=" ">
             <!--
@@ -15,7 +16,7 @@
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
           -->
-            <ion-item ng-repeat = "contact in directory.contacts" ng-show = "hasConversation(conversations, contact.full_user_id)" class="item-avatar item-icon-right"  id="chat-list-item30" ng-click = "setCurrentChatUser(contact)" ui-sref = "chatScreen">
+            <ion-item ng-repeat = "contact in directory.contacts" ng-show = "hasConversation(conversations, contact.full_user_id)" class="item-avatar item-icon-right"  id="chat-list-item30" ng-click = "setCurrentChatUser(contact)" ui-sref = "tab.chatScreen">
                 <img src="img/f22LnEQBS1EBYrzrI61Q_Indian man smiling-26.png">
                 <h2>{{contact.firstName}} {{contact.lastName}}</h2>
 

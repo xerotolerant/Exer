@@ -66,7 +66,15 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
       }
     }
   })
-
+  .state('tab.createEvent', {
+    url: 'createEvent',
+    views: {
+        'tab-dash':{
+        templateUrl: 'templates/createEvent.html',
+        controller: 'CreateEventCtrl'
+      }
+    }
+  })
   .state('tab.chats', {
       url: '/chats',
       views: {
@@ -85,10 +93,14 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         }
       }
     })
-    .state('chatScreen',{
-      url: '/chats/chatScreen',
-      templateUrl: 'templates/chatScreen.html',
-      controller: 'ChatScreenCtrl'
+    .state('tab.chatScreen',{
+      url: '/chatScreen',
+      views: {
+        'tab-chats': {
+          templateUrl:'templates/chatScreen.html',
+          controller: 'ChatScreenCtrl'
+        }
+      }
     })
     .state('membersList',{
       url: '/chats/membersList',
@@ -139,11 +151,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     controller: 'ClubsCtrl'
   })
 
-  .state('createEvent', {
-    url: '/createEvent',
-    templateUrl: 'templates/createEvent.html',
-    controller: 'CreateEventCtrl'
-  })
+
 
 
   // if none of the above states are matched, use this as the fallback

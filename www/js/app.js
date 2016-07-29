@@ -66,7 +66,15 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
       }
     }
   })
-
+  .state('tab.createEvent', {
+    url: 'createEvent',
+    views: {
+        'tab-dash':{
+        templateUrl: 'templates/createEvent.html',
+        controller: 'CreateEventCtrl'
+      }
+    }
+  })
   .state('tab.chats', {
       url: '/chats',
       views: {
@@ -85,15 +93,32 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         }
       }
     })
-    .state('chatScreen',{
-      url: '/chats/chatScreen',
-      templateUrl: 'templates/chatScreen.html',
-      controller: 'ChatsCtrl'
+    .state('tab.chatScreen',{
+      url: '/chatScreen/:recipientID',
+      views: {
+        'tab-chats': {
+          templateUrl:'templates/chatScreen.html',
+          controller: 'ChatScreenCtrl'
+        }
+      }
     })
-    .state('membersList',{
+    .state('tab.membersList',{
       url: '/chats/membersList',
-      templateUrl: 'templates/membersList.html',
-      controller: 'membersListCtrl'
+      views: {
+        'tab-chats':{
+          templateUrl: 'templates/membersList.html',
+          controller: 'membersListCtrl'
+        }
+      }
+    })
+    .state('tab.otherUserProfile', {
+      url: '/chats/otherUserProfile/:recipientID',
+      views:{
+        'tab-chats':{
+          templateUrl: 'templates/otherUserProfile.html',
+          controller: 'OtherUserProfileCtrl'
+        }
+      }
     })
   .state('tab.account', {
     url: '/account',
@@ -139,11 +164,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     controller: 'ClubsCtrl'
   })
 
-  .state('createEvent', {
-    url: '/createEvent',
-    templateUrl: 'templates/createEvent.html',
-    controller: 'CreateEventCtrl'
-  })
+
 
   .state('clubDetails', {
     url: '/clubDetails',

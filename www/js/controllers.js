@@ -232,6 +232,12 @@ angular.module('starter.controllers', [])
 
 
 .controller('CreateEventCtrl', function($scope, User){
+  $scope.event = {
+    location:{
+      geolocation:latLng
+    }
+
+  }
 
   var latLng = {lat: 10.51499342546846, lng: -61};
     $scope.latLng = latLng;
@@ -303,9 +309,14 @@ angular.module('starter.controllers', [])
     }
 
 
-
-  $scope.createEvent = function(title, description, locationName, geolocation, points, date, time, cost) {
-    User.createEvent(title, description, locationName, geolocation, points, date, time, cost);
+  $scope.logPoints = function(points){
+    console.log(points);
+  }
+  $scope.createEvent = function(event) {
+    console.log(event);
+    $scope.event.points = parseInt($scope.event.points);
+    $scope.event.location.geolocation = latLng;
+    User.createEvent(event);
   }
 })
 
@@ -381,6 +392,7 @@ angular.module('starter.controllers', [])
 
 
   };
+
   $scope.loginUser = function(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
       $scope.loggedIn = true;

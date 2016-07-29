@@ -1,6 +1,8 @@
-<ion-view title="Chats" hide-nav-bar="true" id="page4" style="background-color:#E9E9E9;" class=" ">
+<ion-view title="Chats" view-title = "Chats" id="page4" style="background-color:#E9E9E9;" class=" ">
+
     <ion-content padding="true" style="background: url(img/RXsdPnQTVO7wMxSkntfT_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
         <ion-list id="chat-list14" class=" ">
+            <!--
             <ion-item class="item-avatar item-icon-right  " id="chat-list-item29" ui-sref="chatScreen">
                 <img src="img/MqlTMooPQf6BUoyCO5wM_black woman smiling icon-26.png">
                 <h2>Elise Brevit</h2>
@@ -13,7 +15,8 @@
                 <p>Stacey was killing it. WOW!</p>
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
-            <ion-item ng-repeat = "contact in directory.contacts" class="item-avatar item-icon-right"  id="chat-list-item30" ng-click = "setCurrentChatUser(contact)" ui-sref = "chatScreen">
+          -->
+            <ion-item ng-repeat = "contact in directory.contacts" ng-show = "hasConversation(conversations, contact.full_user_id)" class="item-avatar item-icon-right"  id="chat-list-item30" ui-sref = "tab.chatScreen({recipientID: '{{contact.full_user_id}}'})">
                 <img src="img/f22LnEQBS1EBYrzrI61Q_Indian man smiling-26.png">
                 <h2>{{contact.firstName}} {{contact.lastName}}</h2>
 
@@ -21,9 +24,9 @@
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
         </ion-list>
-        <a ui-sref="membersList" id="chat-button36" class=" button button-balanced  button-block icon ion-ios-plus-outline ">New Chat</a>
-        <button class = "button button-positive" ng-click = "sendIm()">Send Im</button>
+        <a ui-sref="tab.membersList" id="chat-button36" class=" button button-balanced  button-block icon ion-ios-plus-outline ">New Chat</a>
+
         <button class = "button button-positive" ng-click = "getConversations()">Get Conversations</button>
-        <button class = "button button-positive" ng-click = "logData()">Get Conversations</button>
+        <button class = "button button-positive" ng-click = "logData()">Log Data</button>
     </ion-content>
 </ion-view>

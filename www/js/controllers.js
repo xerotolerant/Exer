@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $firebaseObject, $timeout, User) {
+.controller('DashCtrl', function($scope, $firebaseObject, $timeout, User, KandyChat) {
 
   $scope.newEvent = false;
   $scope.events = User.events;
@@ -44,28 +44,39 @@ angular.module('starter.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-  $scope.logData = function(){console.log($scope.directory)};
+
+  $scope.conversations = KandyChat.kandyConversations();
+
+  //$scope.logData = function(){console.log($scope.directory)};
+  //update view with controller data
   refreshDirectory();
   function refreshDirectory(){
-    $scope.directory = KandyChat.directory();
+    //$scope.directory = KandyChat.directory();
     $scope.currentChatUser = KandyChat.currentChatUser();
     $timeout(refreshDirectory, 500);
   }
+  $scope.logData = function(){
+    console.log('Conversation: ', $scope.conversations);
+    console.log("Directory: ", $scope.directory);
 
+    console.log();
+  }
   $scope.setCurrentChatUser = function(contact){
     KandyChat.setCurrentChatUser(contact);
+
   }
 
-  $scope.sendMessage = function(message){
-    kandy.messaging.sendIm($scope.currentChatUser.full_user_id, message,
-      function(s){
-        console.log("Message Successfully Sent");
-        
-      },
-      function(e){console.log("there was an error: ", e)}
-    )
-    console.log(message);
+  $scope.hasConversation = function(conversations, contactID){
+
+    //loop through objects in conversations array
+    //if any object contains contactID under full_user_id return true
+    for (var i = 0; i < conversations.length; i++) {
+      if (conversations[i].destination === contactID){
+        return true
+      }
+    }
   }
+
   /*
   $scope.Conversations = [];
   $scope.messages = [];
@@ -77,26 +88,15 @@ angular.module('starter.controllers', [])
     console.log(KandyChat.directory);
     console.log($scope.directory);
   }
-  $scope.getConversations = function(conversationArray){
+  */
 
-    kandy.messaging.getConversations(
-      function(conversations){
-        conversationArray = conversations;
-        console.log(conversations);
-       },
-      function(e){console.log(e)}
-    )
-  }
+
   $scope.setCurrentChat = function(user){
     console.log("User: ", user);
     KandyChat.currentChatUser = user;
     $state.go('chatScreen');
     $scope.currentChatUser = user;
-
-    $scope.logData = function(){
-      console.log($scope.directory);
-    }
-  }
+  }//setCurrentChat
 
   kandy.addressBook.retrieveDirectory(
     function(directory){console.log("directory retrieved"); console.log(directory); KandyChat.directory = directory; $scope.directory = directory; $timeout()},
@@ -113,13 +113,59 @@ angular.module('starter.controllers', [])
       function(e){console.log("sending failed", e)}
     );
   }
-  */
-})
-.controller('chatScreenCtrl', function($scope) {
 
 })
-.controller('membersListCtrl', function($scope) {
+.controller('ChatScreenCtrl', function($scope, KandyChat, $timeout) {
+  console.log(KandyChat.currentChatUser());
+  kandy.messaging.getMessages(KandyChat.currentChatUser().full_user_id, {}, function(success){
+    $scope.messages = success
+    console.log($scope.messages);
+  }, function(error){
+    console.log(error);
+  })
+  $scope.logMessages = function(){
+    /*
+    console.log($scope.currentChatUser.full_user_id);
+    console.log(KandyChat.chats());
+    console.log(KandyChat.chats()[$scope.currentChatUser.full_user_id]);
+    */
+    console.log($scope.chat);
+    console.log(KandyChat.kandyConversations());
 
+  }
+
+  //update view with controller data
+  //refreshDirectory();
+
+  function refreshDirectory(){
+    $scope.directory = KandyChat.directory;
+    //get current chatUser
+    $scope.currentChatUser = KandyChat.currentChatUser();
+    $scope.chat = KandyChat.chats();
+    $timeout(refreshDirectory, 500);
+  }
+
+  $scope.sendMessage = function(message){
+    kandy.messaging.sendIm($scope.currentChatUser.full_user_id, message,
+      function(s){
+        console.log("Message Successfully Sent");
+        console.log(s);
+
+        //KandyChat.addChat(s);
+      },
+      function(e){console.log("there was an error: ", e)}
+    )//send Message
+
+  }
+
+
+
+
+
+
+})
+.controller('membersListCtrl', function($scope, KandyChat) {
+  $scope.directory = KandyChat.directory;
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
@@ -262,12 +308,12 @@ angular.module('starter.controllers', [])
     if (user) {
       $scope.loggedIn = true;
       //console.log($scope.loggedIn);
-        console.log("Logged In");
+      //console.log("Logged In");
         $state.go("tab.chats");
     } else {
       $scope.loggedIn = false;
       //console.log($scope.loggedIn);
-      console.log("Logged Out");
+      //console.log("Logged Out");
     };
 
   });

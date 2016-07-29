@@ -1,5 +1,5 @@
 <ion-view title="Chat Screen" id="page18" style="background-color:#E9E9E9;" class=" ">
-    <ion-content padding="true" style="background: url(img/ELdAIqv9SQa7JKMSMm7M_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+    <ion-content padding="true" style="background: url(img/ELdAIqv9SQa7JKMSMm7M_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding has-footer">
         <ion-list id="chatScreen-list19" class=" ">
             <ion-item class="item-avatar  " id="chatScreen-list-item90" ui-sref="exerConsol.otherUserProfile">
                 <img src="img/xPhAwkUvSsq0iDEWi7ep_black woman smiling icon-26.png">
@@ -25,14 +25,17 @@
               <p>{{message.sender.user_id}}</p>
             </div>
           </ion-list>
-            <form id="chatScreen-form11" class="list ">
-                <label class="item item-input " id="chatScreen-input6">
 
-                    <input type="text" placeholder="" ng-model = "message">
-                </label>
-                <button class = "button button-small" ng-click = "sendMessage(message)">Send</button>
-                <button class = "button button-small" ng-click = "logMessages()">Log message</button>
-            </form>
         </div>
+
     </ion-content>
+    <ion-footer-bar class = "padding" >
+      <div class>
+        <label class="item item-input " id="chatField">
+            <input type="text" placeholder="" ng-model = "message">
+            <button class = "button button-positive" ng-click = "sendMessage(message)">Send</button>
+        </label>
+
+      </div>
+    </ion-footer-bar>
 </ion-view>

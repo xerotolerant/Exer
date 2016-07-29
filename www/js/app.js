@@ -94,7 +94,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
       }
     })
     .state('tab.chatScreen',{
-      url: '/chatScreen',
+      url: '/chatScreen/:recipientID',
       views: {
         'tab-chats': {
           templateUrl:'templates/chatScreen.html',
@@ -102,10 +102,23 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         }
       }
     })
-    .state('membersList',{
+    .state('tab.membersList',{
       url: '/chats/membersList',
-      templateUrl: 'templates/membersList.html',
-      controller: 'membersListCtrl'
+      views: {
+        'tab-chats':{
+          templateUrl: 'templates/membersList.html',
+          controller: 'membersListCtrl'
+        }
+      }
+    })
+    .state('tab.otherUserProfile', {
+      url: '/chats/otherUserProfile/:recipientID',
+      views:{
+        'tab-chats':{
+          templateUrl: 'templates/otherUserProfile.html',
+          controller: 'OtherUserProfileCtrl'
+        }
+      }
     })
   .state('tab.account', {
     url: '/account',

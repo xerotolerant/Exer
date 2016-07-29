@@ -39,9 +39,10 @@
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
           -->
-            <ion-item ng-repeat = "contact in directory.contacts"class="item-avatar item-icon-right  " id="membersList-list-item80" ui-sref="exerConsol.otherUserProfile">
+            <ion-item ng-repeat = "contact in directory.contacts"class="item-avatar item-icon-right  " id="membersList-list-item80" ui-sref="tab.otherUserProfile({recipientID: '{{contact.full_user_id}}'})">
                 <img src="img/jfRzd4phSgGLxQ4rl1rC_chinese guy.jpg">
                 <h2>{{contact.firstName}} {{conact.lastName}}</h2>
+                <p>{{contact.full_user_id}}</p>
                 <p style="white-space:normal;">Spartan Fitness</p>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>

@@ -208,13 +208,13 @@ angular.module('starter.services', [])
       message: onMessageReceived
     }
   });//kandy.setup
+
   function onMessageReceived(message){
-    if (chats[chats.length - 1] !== message) {
-      chats.$add(message);
-    }
-    //chats.$add(message);
-    console.log(chats);
+
+    //console.log(chats);
+    
   }
+
   //chatsObject
   var chats = {};
   var getChats = function(){
@@ -223,7 +223,7 @@ angular.module('starter.services', [])
   //User Kandy Credentials
   var currentUser = firebase.auth().currentUser;
   var kandyRef = firebase.database().ref("users/" + currentUser.uid + "/kandy");
-  var directory ={};
+  var directory = {};
   var factoryKandy = $firebaseObject(kandyRef);
   var currentChatUser = {};
   var kandyConversations = [];
@@ -231,6 +231,8 @@ angular.module('starter.services', [])
   //get messages for currentChatUser
 
   console.log(currentChatUser);
+
+  //get User Kand credentials from firebase server
   factoryKandy.$loaded().then(function(data){
     kandy.login(
       "DAK38603c393d394a1ab1452c3b12a20cef",
@@ -243,7 +245,11 @@ angular.module('starter.services', [])
            function(error){console.log(error)}
          );
          kandy.addressBook.retrieveDirectory(
-           function(data){console.log("directory retrieved"); console.log(data); updateDirectory(data);},
+           function(data){
+             console.log("directory retrieved");
+             //console.log(data);
+             directory = data;
+           },
            function(){console.log("failed")}
          )
        },
@@ -252,45 +258,19 @@ angular.module('starter.services', [])
 
   });//kandy Firebase object
 
-  //Connect messages to firebaseArray
 
-  var chatsRef = firebase.database().ref().child("chats/" + currentUser.uid + "/" + currentChatUser.user_id + "/");
-  var chats = $firebaseArray(chatsRef);
 
-  chats.$loaded(function(){
-    console.log("Firebase Chats loaded");
-    console.log(chats.length);
-    if (chats.length === 0) {
-      chats.$add({
-        from: "Test",
-        content: "Hello!",
-        timestamp: firebase.database.ServerValue.TIMESTAMP
-      });
-
-    }
-  });
-
-  var updateDirectory = function(data){
-    directory = data;
-  }
 
   var setCurrentChatUser = function(contact){
     currentChatUser = contact;
   }
-  
-  var addChat = function(message){
-    chats.$add(message);
-  }
-  var getChatsRef = function(){
-    return chatsRef
-  }
+
+
   return{
-    updateDirectory: updateDirectory,
     directory: function(){return directory},
     setCurrentChatUser: setCurrentChatUser,
     currentChatUser: function(){return currentChatUser},
-    chats: getChats,
-    addChat: addChat,
+    chats: function(){return chats},
     kandyConversations: function(){return kandyConversations},
     currentUser: function(){return currentUser}
   }

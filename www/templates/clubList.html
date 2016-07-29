@@ -9,32 +9,13 @@
         </form>
         <div class="list card " id="clubList-card216">
             <ion-item class="item-divider " id="clubList-list-item-divider7">Top Picks</ion-item>
-            <ion-item class="item-avatar item-icon-right balanced  " id="clubList-list-item55" ui-sref="clubDetails" ng-repeat = "(key, club) in clubs">
+            <ion-item class="item-avatar item-icon-right balanced  " id="clubList-list-item55" ng-repeat = "(key, club) in clubs">
                 <img src="img/XobsIIYRTdqVvDvmoJOh_Fitmiss Logo.png">
                 <h2balanced>{{club.name}}
                     <p>Club motto / mission statement</p>
                     <i class="icon ion-checkmark-circled"></i>
+                    <button ng-click = "request(key)">Join<button>
                 </h2balanced>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right balanced  " id="clubList-list-item57" ui-sref="exerConsol.productDetails">
-                <img src="img/YV1Nli6gS2iIhysZey8f_Paul Davis Training.png">
-                <h2balanced>Paul Davis Training
-                    <p>One on on</p>
-                    <i class="icon ion-checkmark-circled icon-accessory"></i>
-                </h2balanced>
-            </ion-item>
-            <ion-item class="item-divider " id="clubList-list-item-divider8">Top Picks</ion-item>
-            <ion-item class="item-icon-left item-icon-right dark  " id="clubList-list-item58" ui-sref="exerConsol.productDetails">
-                <i class="icon ion-ionic"></i>Fitmiss
-                <i class="icon ion-checkmark-circled icon-accessory"></i>
-            </ion-item>
-            <ion-item class="item-icon-left item-icon-right energized  " id="clubList-list-item59" ui-sref="exerConsol.productDetails">
-                <i class="icon ion-ionic"></i>Paul Davis Training
-                <i class="icon ion-checkmark-circled"></i>
-            </ion-item>
-            <ion-item class="item-icon-left item-icon-right  " id="clubList-list-item60" ui-sref="exerConsol.productDetails">
-                <i class="icon ion-ionic"></i>Green Power
-                <i class="icon ion-checkmark-circled icon-accessory"></i>
             </ion-item>
         </div>
     </ion-content>

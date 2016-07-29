@@ -16,7 +16,7 @@
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
           -->
-            <ion-item ng-repeat = "contact in directory.contacts" ng-show = "hasConversation(conversations, contact.full_user_id)" class="item-avatar item-icon-right"  id="chat-list-item30" ng-click = "setCurrentChatUser(contact)" ui-sref = "tab.chatScreen">
+            <ion-item ng-repeat = "contact in directory.contacts" ng-show = "hasConversation(conversations, contact.full_user_id)" class="item-avatar item-icon-right"  id="chat-list-item30" ui-sref = "tab.chatScreen({recipientID: '{{contact.full_user_id}}'})">
                 <img src="img/f22LnEQBS1EBYrzrI61Q_Indian man smiling-26.png">
                 <h2>{{contact.firstName}} {{contact.lastName}}</h2>
 
@@ -24,8 +24,8 @@
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
         </ion-list>
-        <a ui-sref="membersList" id="chat-button36" class=" button button-balanced  button-block icon ion-ios-plus-outline ">New Chat</a>
-        
+        <a ui-sref="tab.membersList" id="chat-button36" class=" button button-balanced  button-block icon ion-ios-plus-outline ">New Chat</a>
+
         <button class = "button button-positive" ng-click = "getConversations()">Get Conversations</button>
         <button class = "button button-positive" ng-click = "logData()">Log Data</button>
     </ion-content>

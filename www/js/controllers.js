@@ -86,10 +86,11 @@ angular.module('starter.controllers', [])
   }//setCurrentChat
 
 })//ChatsCtrl
-.controller('ChatScreenCtrl', function($scope, KandyChat, $timeout) {
-  
+.controller('ChatScreenCtrl', function($scope, KandyChat, $timeout, $stateParams) {
+  var recipientID = $stateParams.recipientID;
+  console.log(recipientID);
   //get messages from Kandy
-  kandy.messaging.getMessages(KandyChat.currentChatUser().full_user_id, {}, function(success){
+  kandy.messaging.getMessages(recipientID, {}, function(success){
     $scope.messages = success
   }, function(error){
     console.log(error);
@@ -100,19 +101,18 @@ angular.module('starter.controllers', [])
     console.log(KandyChat.kandyConversations());
   }//logMessages
 
-  //update view with controller data
-  //refreshDirectory();
+
 
   function refreshDirectory(){
     $scope.directory = KandyChat.directory;
     //get current chatUser
-    $scope.currentChatUser = KandyChat.currentChatUser();
+    //$scope.currentChatUser = KandyChat.currentChatUser();
     $scope.chat = KandyChat.chats();
     $timeout(refreshDirectory, 500);
   }//refreshDirectory
 
   $scope.sendMessage = function(message){
-    kandy.messaging.sendIm($scope.currentChatUser.full_user_id, message,
+    kandy.messaging.sendIm(recipientID, message,
       function(s){
         console.log("Message Successfully Sent");
         console.log(s);
@@ -125,11 +125,11 @@ angular.module('starter.controllers', [])
 
 })//ChatScreenCtrl
 .controller('membersListCtrl', function($scope, KandyChat) {
-  $scope.directory = KandyChat.directory;
+  $scope.directory = KandyChat.directory();
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+  //$scope.chat = Chats.get($stateParams.chatId);
 })
 
 
@@ -342,4 +342,11 @@ angular.module('starter.controllers', [])
       console.log(error.message);
     });
   };
-});//LoginCtrl
+})//LoginCtrl
+
+.controller('OtherUserProfileCtrl', function($scope, KandyChat, $state, $stateParams){
+  $scope.userID = $stateParams.recipientID;
+  console.log($scope.userID);
+
+
+});

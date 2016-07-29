@@ -210,11 +210,9 @@ angular.module('starter.services', [])
   });//kandy.setup
 
   function onMessageReceived(message){
-    if (chats[chats.length - 1] !== message) {
-      chats.$add(message);
-    }
-    //chats.$add(message);
-    console.log(chats);
+
+    //console.log(chats);
+    
   }
 
   //chatsObject

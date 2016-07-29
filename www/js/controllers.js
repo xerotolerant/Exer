@@ -45,16 +45,18 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.conversations = KandyChat.kandyConversations();
+
 
 
 
   //$scope.logData = function(){console.log($scope.directory)};
   //update view with controller data
+
   refreshDirectory();
   function refreshDirectory(){
     $scope.directory = KandyChat.directory();
-    $scope.currentChatUser = KandyChat.currentChatUser();
+    $scope.conversations = KandyChat.kandyConversations();
+    //$scope.currentChatUser = KandyChat.currentChatUser();
     $timeout(refreshDirectory, 500);
   }
   $scope.logData = function(){

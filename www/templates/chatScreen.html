@@ -8,6 +8,7 @@
             </ion-item>
         </ion-list>
         <div class="item item-body " id="chatScreen-list-item-container10">
+          <ion-list>
             <p id="chatScreen-markdown25" style="margin-top:0px;color:#818181;" class=" ">Hey Jesse!</p>
             <p id="chatScreen-markdown26" style="color:#000000;text-align:right;" class=" ">Ellie!!!!</p>
             <p id="chatScreen-markdown27" style="margin-top:0px;color:#818181;" class=" ">How are the kids?</p>
@@ -18,12 +19,19 @@
             <p id="chatScreen-markdown30" style="color:#818181;" class=" ">I thought you were coming to the event? I didn't see you and you are too tall to hide. What happened with Darnell and the kids?</p>
             <p id="chatScreen-markdown34" style="color:#000000;text-align:right;" class=" ">Elise are you there already? I don't think I will be able to come...sry</p>
             <p id="chatScreen-markdown33" style="color:#8B8B8B;font-size:9px;text-align:center;" class=" ">Today</p>
+
+            <div ng-repeat = "message in messages" class = "card padding">
+              <h2>{{message.message.text}}</h2>
+              <p>{{message.sender.user_id}}</p>
+            </div>
+          </ion-list>
             <form id="chatScreen-form11" class="list ">
                 <label class="item item-input " id="chatScreen-input6">
-                    <span class="input-label">|</span>
+
                     <input type="text" placeholder="" ng-model = "message">
                 </label>
                 <button class = "button button-small" ng-click = "sendMessage(message)">Send</button>
+                <button class = "button button-small" ng-click = "logMessages()">Log message</button>
             </form>
         </div>
     </ion-content>

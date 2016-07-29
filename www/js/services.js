@@ -1,5 +1,5 @@
 angular.module('starter.services', [])
-.service("User", function($firebaseObject, $ionicPopup, $state){
+.service("User", function($firebaseObject, $ionicPopup, $state, $timeout){
 
 
   //get User Data from firebase
@@ -54,16 +54,14 @@ angular.module('starter.services', [])
   };
 
   //create events
-  this.createEvent = function(title, description, locationName, geoposition, points, date, time, cost){
+  this.createEvent = function(title, locationName, geoposition, points, date, time){
     console.log(title + " " + locationName);
     //console.log("geoposition: ", geoposition.coords )
     var exerEvent = {
       title: title,
-      points:points,
+      points:parseInt(points),
       date: date,
       time: time,
-      description: description,
-      cost: cost,
       location: {
         name: locationName,
         geoposition: {
@@ -203,14 +201,24 @@ angular.module('starter.services', [])
 
   }
 })
-.service("KandyChat", function($timeout, $firebaseObject){
+.service("KandyChat", function($timeout, $firebaseObject, $firebaseArray, $timeout){
+
   kandy.setup({
     listeners: {
       message: onMessageReceived
     }
   });//kandy.setup
   function onMessageReceived(message){
-    console.log(message);
+    if (chats[chats.length - 1] !== message) {
+      chats.$add(message);
+    }
+    //chats.$add(message);
+    console.log(chats);
+  }
+  //chatsObject
+  var chats = {};
+  var getChats = function(){
+    return chats
   }
   //User Kandy Credentials
   var currentUser = firebase.auth().currentUser;
@@ -218,6 +226,11 @@ angular.module('starter.services', [])
   var directory ={};
   var factoryKandy = $firebaseObject(kandyRef);
   var currentChatUser = {};
+  var kandyConversations = [];
+  var chatMessages;
+  //get messages for currentChatUser
+
+  console.log(currentChatUser);
   factoryKandy.$loaded().then(function(data){
     kandy.login(
       "DAK38603c393d394a1ab1452c3b12a20cef",
@@ -225,6 +238,10 @@ angular.module('starter.services', [])
        data.password,
        function(s){
          console.log("Kandy Login succesful");
+         kandy.messaging.getConversations(
+           function(conversations){kandyConversations = conversations},
+           function(error){console.log(error)}
+         );
          kandy.addressBook.retrieveDirectory(
            function(data){console.log("directory retrieved"); console.log(data); updateDirectory(data);},
            function(){console.log("failed")}
@@ -235,23 +252,47 @@ angular.module('starter.services', [])
 
   });//kandy Firebase object
 
+  //Connect messages to firebaseArray
+
+  var chatsRef = firebase.database().ref().child("chats/" + currentUser.uid + "/" + currentChatUser.user_id + "/");
+  var chats = $firebaseArray(chatsRef);
+
+  chats.$loaded(function(){
+    console.log("Firebase Chats loaded");
+    console.log(chats.length);
+    if (chats.length === 0) {
+      chats.$add({
+        from: "Test",
+        content: "Hello!",
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      });
+
+    }
+  });
+
   var updateDirectory = function(data){
     directory = data;
   }
-  var getDirectory = function(){
-    return directory;
-  }
+
   var setCurrentChatUser = function(contact){
     currentChatUser = contact;
   }
-  var getCurrentChatUser = function(){
-    return currentChatUser
+  
+  var addChat = function(message){
+    chats.$add(message);
+  }
+  var getChatsRef = function(){
+    return chatsRef
   }
   return{
     updateDirectory: updateDirectory,
-    directory: getDirectory,
+    directory: function(){return directory},
     setCurrentChatUser: setCurrentChatUser,
-    currentChatUser: getCurrentChatUser
+    currentChatUser: function(){return currentChatUser},
+    chats: getChats,
+    addChat: addChat,
+    kandyConversations: function(){return kandyConversations},
+    currentUser: function(){return currentUser}
   }
 
 });

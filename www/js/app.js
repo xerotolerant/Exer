@@ -158,10 +158,14 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 
   })
 
-  .state('clubs',{
-    url:'/clubs',
-    templateUrl: 'templates/clubList.html',
-    controller: 'ClubsCtrl'
+  .state('tab.clubs',{
+    url:'account/clubs',
+    views:{
+      'tab-account' : {
+        templateUrl: 'templates/clubList.html',
+        controller: 'ClubsCtrl'
+      }
+    }
   })
 
 

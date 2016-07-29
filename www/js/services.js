@@ -54,26 +54,10 @@ angular.module('starter.services', [])
   };
 
   //create events
-  this.createEvent = function(title, description, locationName, geoposition, points, date, time, cost){
-    console.log(title + " " + locationName);
-    //console.log("geoposition: ", geoposition.coords )
-    var exerEvent = {
-      title: title,
-      points:parseInt(points),
-      date: date,
-      time: time,
-      description: description,
-      cost: cost,
-      location: {
-        name: locationName,
-        geoposition: {
-          latitude: geoposition.lat,
-          longitude: geoposition.lng
-        }
-      }
-    }
+  this.createEvent = function(event){
+
     console.log("Creating event");
-    firebase.database().ref('events/').push(exerEvent);
+    firebase.database().ref('events/').push(event);
   };
   //validate events
   this.validateEvent = function(eventId, userId, currentPosition){

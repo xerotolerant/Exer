@@ -47,11 +47,13 @@ angular.module('starter.controllers', [])
 
   $scope.conversations = KandyChat.kandyConversations();
 
+
+
   //$scope.logData = function(){console.log($scope.directory)};
   //update view with controller data
   refreshDirectory();
   function refreshDirectory(){
-    //$scope.directory = KandyChat.directory();
+    $scope.directory = KandyChat.directory();
     $scope.currentChatUser = KandyChat.currentChatUser();
     $timeout(refreshDirectory, 500);
   }
@@ -63,11 +65,9 @@ angular.module('starter.controllers', [])
   }
   $scope.setCurrentChatUser = function(contact){
     KandyChat.setCurrentChatUser(contact);
-
   }
 
   $scope.hasConversation = function(conversations, contactID){
-
     //loop through objects in conversations array
     //if any object contains contactID under full_user_id return true
     for (var i = 0; i < conversations.length; i++) {
@@ -75,21 +75,8 @@ angular.module('starter.controllers', [])
         return true
       }
     }
+    return false
   }
-
-  /*
-  $scope.Conversations = [];
-  $scope.messages = [];
-  $scope.friends = [];
-  $scope.directory = KandyChat.directory;
-
-  $scope.currentUser = KandyChat.currentChatUser;
-  $scope.logData = function(){
-    console.log(KandyChat.directory);
-    console.log($scope.directory);
-  }
-  */
-
 
   $scope.setCurrentChat = function(user){
     console.log("User: ", user);
@@ -98,41 +85,20 @@ angular.module('starter.controllers', [])
     $scope.currentChatUser = user;
   }//setCurrentChat
 
-  kandy.addressBook.retrieveDirectory(
-    function(directory){console.log("directory retrieved"); console.log(directory); KandyChat.directory = directory; $scope.directory = directory; $timeout()},
-    function(){console.log("failed")}
-  )
-
-  $scope.sendIm = function(){
-    var message = "hello Kheenan";
-
-    kandy.messaging.sendIm(
-      'user1@raiora.hotmail.com',
-      message ,
-      function(s){console.log("message sent", s)},
-      function(e){console.log("sending failed", e)}
-    );
-  }
-
-})
+})//ChatsCtrl
 .controller('ChatScreenCtrl', function($scope, KandyChat, $timeout) {
-  console.log(KandyChat.currentChatUser());
+  
+  //get messages from Kandy
   kandy.messaging.getMessages(KandyChat.currentChatUser().full_user_id, {}, function(success){
     $scope.messages = success
-    console.log($scope.messages);
   }, function(error){
     console.log(error);
-  })
+  })//getMessages
+
   $scope.logMessages = function(){
-    /*
-    console.log($scope.currentChatUser.full_user_id);
-    console.log(KandyChat.chats());
-    console.log(KandyChat.chats()[$scope.currentChatUser.full_user_id]);
-    */
     console.log($scope.chat);
     console.log(KandyChat.kandyConversations());
-
-  }
+  }//logMessages
 
   //update view with controller data
   //refreshDirectory();
@@ -143,7 +109,7 @@ angular.module('starter.controllers', [])
     $scope.currentChatUser = KandyChat.currentChatUser();
     $scope.chat = KandyChat.chats();
     $timeout(refreshDirectory, 500);
-  }
+  }//refreshDirectory
 
   $scope.sendMessage = function(message){
     kandy.messaging.sendIm($scope.currentChatUser.full_user_id, message,
@@ -154,16 +120,10 @@ angular.module('starter.controllers', [])
         //KandyChat.addChat(s);
       },
       function(e){console.log("there was an error: ", e)}
-    )//send Message
+    )
+  }//sendMessage
 
-  }
-
-
-
-
-
-
-})
+})//ChatScreenCtrl
 .controller('membersListCtrl', function($scope, KandyChat) {
   $scope.directory = KandyChat.directory;
 })

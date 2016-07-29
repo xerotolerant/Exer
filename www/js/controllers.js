@@ -221,6 +221,13 @@ angular.module('starter.controllers', [])
     $scope.player = true;
   }
   console.log($scope.clubs);
+  var userID = User.currentUser.uid;
+  $scope.request = function(request, userID){
+      console.log(request);
+      var club = {}
+      club[request];
+      console.log(club);
+  }
 })
 
 

@@ -211,8 +211,8 @@ angular.module('starter.services', [])
 
   function onMessageReceived(message){
 
-    //console.log(chats);
-    
+    console.log("message Received",message);
+
   }
 
   //chatsObject

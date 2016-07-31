@@ -8,7 +8,10 @@
             <label class="item item-input " id="login-input4">
                 <input type="password" placeholder="Password" ng-model="password">
             </label>
-            <button id="login-button3" class=" button button-positive  button-block " ng-click = "loginUser(email, password)">Login</button>
+            <label class = "item" ng-show = "errorMessage">
+              <h2>{{errorMessage}}</h2>
+            </label>
+            <button id="login-button3" class=" button button-positive  button-block " ng-click = "loginUser(email, password, errorMessage)">Login</button>
             <button id="login-button3" class=" button button-positive  button-block " ng-click = "switch()">Create Account</button>
         </form>
 
@@ -47,7 +50,9 @@
 
 
             <button class = "button" ng-disabled = "userForm.$invalid" ng-click = "createUser(email, password, userRole, username, request)">New Account</button>
+
           </ion-list>
+
           <a ng-click = "switch()">Login</a>
         </form>
 

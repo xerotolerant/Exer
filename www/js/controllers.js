@@ -256,7 +256,12 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('LoginCtrl', function($scope, $state, $location, Club) {
+.controller('LoginCtrl', function($scope, $state, $location, Club, $timeout) {
+
+  /*function updateError() {
+    $scope.error = $scope.error;
+    $timeout(updateError, 500);
+  }*/
   $scope.changeLocation = function(){
     console.log("Changing View");
     $state.go("tab.chats");
@@ -342,6 +347,9 @@ angular.module('starter.controllers', [])
     }).catch(function(error){
       console.log(error.code);
       console.log(error.message);
+      console.log($scope);
+      $timeout(function(){$scope.errorMessage = error.message}, 500);
+
     });
   };
 })//LoginCtrl

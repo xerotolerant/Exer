@@ -6,7 +6,7 @@
             </div>
             <h1 id="profile-heading9" style="color:#000000;text-align:center;" class=" ">{{user.displayName}}</h1>
             <a ui-sref="tab.clubs" id="profile-button41" class=" button button-calm  button-block ">Join Club</a>
-            <a ui-sref="clubs" id="profile-button41" class=" button button-calm  button-block " ng-hide = "player">Create Club</a>
+            <a id="profile-button41" class=" button button-calm  button-block " ng-hide = "player" ng-click ="form()">Create Club</a>
             <ion-item class="item-thumbnail-left  " id="profile-list-item33">
                 <img src="img/tZIBtATt666rw1qcyQQ2_Courare Icon-19.png">
                 <h2>Your Courage</h2>
@@ -16,25 +16,25 @@
                 <p>Email Address: {{user.email}}</p>
             </ion-item>
         </div>
-        <form name = "newClub">
+        <form name = "newClub" ng-show = "clubForm">
             <ion-list>
                 <label class="item item-input">
                   <span class="input-label">Club name:</span>
-                  <input type="text" name = "clubName" ng-model = "clubName">
+                  <input type="text" name = "clubName" ng-model = "club.name">
                 </label>
                 <label class="item item-input">
                   <span class="input-label">Location</span>
-                  <input type="text" name = "clubLocation" ng-model = "clubLocation">
+                  <input type="text" name = "clubLocation" ng-model = "club.location.name">
                 </label>
                 <label class="item item-input">
                   <span class="input-label">description</span>
-                  <input type="text" name = "clubDescription" ng-model = "clubDescription">
+                  <input type="text" name = "clubDescription" ng-model = "club.description">
                 </label>
                 <label ng-repeat = "(key, user) in users" >
-                    <input type="checkbox" name="persons" ng-model="members[key]">{{user.username}}
+                    <input type="checkbox" name="persons" ng-model="club.members[key]">{{user.username}}
                     </br>
                 </label>
-              <button class ="button button-positive" ng-click = "createClub(clubName, clubLocation, members, clubDescription)">Create Club</button>
+              <button class ="button button-positive" ng-click = "createClub(club)">Create Club</button>
             </ion-list>
         </form>
         <div class="list card " id="profile-card213">

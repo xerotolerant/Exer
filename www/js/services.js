@@ -126,15 +126,8 @@ angular.module('starter.services', [])
     }//Distance
   }//Validate  event
 
-  this.createClub = function(name, locationName, members, description ){
-    var exerClub = {
-      name:name,
-      description: description,
-      members: members,
-      location:{
-        name:locationName
-      }
-    }
+  this.createClub = function(exerClub ){
+
     firebase.database().ref('clubs/').push(exerClub);
     console.log("Club Created");
   }

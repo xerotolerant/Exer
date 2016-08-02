@@ -160,11 +160,20 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
+  $scope.clubForm = false;
+  $scope.club = {}
 
   if(User.userData.userRole == "validator"){
     $scope.player = false;
   }else{
     $scope.player = true;
+  }
+  $scope.form = function(){
+      if($scope.clubForm){
+        $scope.clubForm = false;
+      }else {
+        $scope.clubForm = true;
+      }
   }
   $scope.events = User.events;
   console.log("Events");
@@ -177,8 +186,9 @@ angular.module('starter.controllers', [])
   }
   $scope.members = {};
 
-  $scope.createClub = function(name, location, members, clubDescription){
-    User.createClub(name, location, members, clubDescription);
+  $scope.createClub = function(club){
+    console.log(club);
+    User.createClub(club);
     //console.log(members);
   }
 
@@ -186,7 +196,7 @@ angular.module('starter.controllers', [])
 })//AccountCtrl
 
 .controller('FeedCtrl', function($scope, User){
-  //console.log("Feed controller in a gear");
+
   console.log(User.userData);
   console.log(User.userData.userRole);
 
@@ -200,7 +210,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('StoreCtrl', function($scope, User){
-  //console.log("Store controller in a gear");
+
   if(User.userData.userRole == "validator"){
     console.log("I'm a Validator - Store");
     $scope.player = false;

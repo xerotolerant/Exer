@@ -175,6 +175,36 @@ angular.module('starter.controllers', [])
         $scope.clubForm = true;
       }
   }
+  $scope.proPic = "img/N11tKt9R6icaIx79180w_Smiling-woman.jpg";
+  var storageRef = firebase.storage().ref();
+  var profilePicRef = storageRef.child('images/'+ User.currentUser.uid + "_proPic");
+  profilePicRef.getMetadata().then(function(metadata){
+    console.log(metadata.downloadURLs[0]);
+    $scope.proPic = metadata.downloadURLs[0];
+    console.log($scope.proPic);
+  }).catch(function(error) {
+    console.log(error);
+  });
+  $scope.imgUpload = function(image){
+    console.log(image);
+    console.log(image.files);
+    var filename = User.currentUser.uid + "_proPic"
+
+    var storageRef = firebase.storage().ref();
+    var profilePicRef = storageRef.child('images/'+filename);
+    var profilePicImageRef = storageRef.child('images/'+filename).put(image.files[0]);
+
+    profilePicRef.getMetadata().then(function(metadata){
+      console.log(metadata.fullPath);
+      $scope.proPic = metadata.downloadURLs[0];
+    }).catch(function(error) {
+      console.log(error);
+    });
+
+    // While the file names are the same, the references point to different files
+  //  profilePicRef.name === mountainImagesRef.name            // true
+  //  profilePicImageRef.fullPath === mountainImagesRef.fullPath    // false
+  }
   $scope.events = User.events;
   console.log("Events");
   console.log(User.events);

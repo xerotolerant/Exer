@@ -2,8 +2,9 @@
     <ion-content padding="true" style="background: url(img/ELdAIqv9SQa7JKMSMm7M_light%2520background-23.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
         <div class="list card " id="profile-card26">
             <div class=" item item-image">
-                <img src="img/N11tKt9R6icaIx79180w_Smiling-woman.jpg" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+                <img ng-src="{{proPic}}" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
             </div>
+            Profile image: <input type="file" name="image" id="image" onchange="angular.element(this).scope().imgUpload(this)">
             <h1 id="profile-heading9" style="color:#000000;text-align:center;" class=" ">{{user.displayName}}</h1>
             <a ui-sref="tab.clubs" id="profile-button41" class=" button button-calm  button-block ">Join Club</a>
             <a id="profile-button41" class=" button button-calm  button-block " ng-hide = "player" ng-click ="form()">Create Club</a>
